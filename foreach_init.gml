@@ -103,6 +103,7 @@ function foreach_init() {
 	#macro in \
 		ds_stack_top(fed.stacks).input =
 	
+	// ARRAY
 	#macro as_array \
 		fed.cs = ds_stack_top(fed.stacks); \
 		fed.cs.data_type = 0; \
@@ -119,6 +120,7 @@ function foreach_init() {
 				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
 			})
 	
+	// LIST
 	#macro as_list \
 		fed.cs = ds_stack_top(fed.stacks); \
 		fed.cs.data_type = 1; \
@@ -135,6 +137,7 @@ function foreach_init() {
 				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
 			})
 	
+	// MAP
 	#macro as_map \
 		fed.cs = ds_stack_top(fed.stacks); \
 		fed.cs.data_type = 2; \
@@ -152,6 +155,7 @@ function foreach_init() {
 				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
 			})
 	
+	// GRID
 	#macro as_grid \
 		fed.cs = ds_stack_top(fed.stacks); \
 		fed.cs.data_type = 3; \
@@ -176,6 +180,7 @@ function foreach_init() {
 				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
 			})
 	
+	// STRING
 	#macro as_string \
 		fed.cs = ds_stack_top(fed.stacks); \
 		fed.cs.data_type = 4; \
@@ -192,6 +197,7 @@ function foreach_init() {
 				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
 			})
 	
+	// STRUCT
 	#macro as_struct \
 		fed.cs = ds_stack_top(fed.stacks); \
 		fed.cs.data_type = 5; \
@@ -211,6 +217,7 @@ function foreach_init() {
 				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
 			})
 	
+	// NUMBER RANGE
 	#macro as_range \
 		fed.cs = ds_stack_top(fed.stacks); \
 		fed.cs.data_type = 6; \
