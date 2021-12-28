@@ -2,7 +2,7 @@
 Since GM doesn't have foreach I made one my own. 
 This foreach was made using MACROS and not using FUNCTIONS so you don't have to pass variables like arguments and just type them directly
 
-here's some examples
+### Here's some examples
 ```
 var arr = ["Bob", "Julie", "John", "Mark"];
 
