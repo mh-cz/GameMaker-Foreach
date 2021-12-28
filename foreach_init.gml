@@ -38,8 +38,6 @@
 //     DO NOT create these string args variables using the "var" keyword because it's not possible to overwrite variables created like this
 //     
 //     it's still just a loop so you can use break; and continue;
-//     
-/// GMLscripts.com/license
 
 function foreach_init() {
 	
