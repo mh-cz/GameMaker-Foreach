@@ -24,17 +24,17 @@ possible args:
      ["key", "val", step, startfrom]    -returns keys, values and uses custom counter and start position
 
      "key", "val"     (string)
-          -you can name these variables as you want 
+          - you can name these variables as you want 
                (choose unused variable names that do not exists yet)
-          -the first string will always return the key 
-          -the second string will always return the value
-          -"key" is optional and returns the variable used for cycling 
+          - the first string will always return the key 
+          - the second string will always return the value
+          - "key" is optional and returns the variable used for cycling 
                (lists, arrays, strings return i, maps, structs return keys, grids return [xpos, ypos])
 
      step, startfrom     (real)
-          -both optional
-          -step is what is added to the values used for iteration (i += step while looping)
-          -startfrom is what the iterator starts (i = startfrom when the loop starts)
+          - both optional
+          - step is what is added to the values used for iteration (i += step while looping)
+          - startfrom is what the iterator starts (i = startfrom when the loop starts)
 
  possible data types:
      as_array, as_list, as_map, as_struct, as_grid, as_string, as_range
