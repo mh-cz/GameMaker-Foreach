@@ -1,4 +1,4 @@
-# Game-Maker-Foreach
+# GameMaker Foreach
 Since GM doesn't have foreach I made one my own using macros
 
 here's some examples
@@ -102,8 +102,8 @@ foreach "n" in [2, -2, 0.5] as_range {
 -1.5
 */
 ```
-## if you try to reuse an existing variable it will NOT overwrite the existing variable
-## variable_instance_set simply can't do that
+### if you try to reuse an existing variable it will NOT overwrite the existing variable
+### variable_instance_set simply can't do that
 ###### this is the biggest problem with this foreach and idk how to solve it
 
 ```
