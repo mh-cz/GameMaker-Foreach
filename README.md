@@ -29,8 +29,10 @@ possible args:
 	  - if both are used:
 		  - the first string will always return index/key
 		  - the second string will always return value
-          - "key" is optional and returns the variable used for cycling 
-               (lists, arrays, strings return i, maps, structs return keys, grids return [xpos, ypos])
+          - "key":
+               - list, array, string 	returns index (real)
+	       - map, struct 		returns keys (string)
+	       - grid 			returns [xpos, ypos] (array or reals)
 
      step, startfrom     (real)
           - both optional
