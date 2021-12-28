@@ -49,9 +49,8 @@ you can access any variable from the struct containing all the settings in the c
 ```
 fed.cs.<var>;
 ```
-the foreach is stackable
+#### the foreach is stackable
 also if you want to return only the key or index just leave the second string empty
-
 ```
 var inventory = [
 	{ weapon: "gun", ammo: 20 },
@@ -108,9 +107,8 @@ foreach "n" in [2, -2, 0.5] as_range {
 */
 ```
 ### if you try to reuse an existing variable it will NOT overwrite the existing variable
-### variable_instance_set simply can't do that
+### variable_instance_set() can't do that
 ###### this is the biggest problem with this foreach and idk how to solve it
-
 ```
 var index = 100;
 
@@ -128,7 +126,6 @@ foreach ["index", "name"] in arr as_array {
 */
 ```
 you can reuse a variable created by another foreach tho
-
 ```
 foreach ["index", "name"] in arr as_array {
 	show_debug_message(string(index) + " " + string(name));
