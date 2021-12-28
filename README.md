@@ -1,7 +1,7 @@
 # GameMaker Foreach
 Since GM doesn't have foreach I made my own
 
-Just call foreach_init() once when the game starts and that's it
+Just call **foreach_init()** once when the game starts and that's it
 
 This foreach was made using MACROS and not using FUNCTIONS so you don't have to pass variables like arguments and just type them directly. On the other hand it will reserve keywords "foreach", "in" and some that start with "as_"
 
