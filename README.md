@@ -10,7 +10,7 @@ It's basically just a for loop with extra steps so you can also use continue; an
 DO NOT create the index/key/value manually. 
 These will get created at runtime so it should say "this variable is used only once". (see the last exemple code)
 
-# Technical stuff
+# How to use
 ```
 usage:
     foreach <args> in <data> as_<data_type> 
