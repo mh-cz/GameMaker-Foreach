@@ -1,5 +1,5 @@
 # GameMaker Foreach
-Since GM doesn't have foreach I made one my own.
+Since GM doesn't have foreach I made my own
 
 Just call foreach_init() once when the game starts and that's it
 
