@@ -2,6 +2,7 @@
 Since GM doesn't have foreach I made one my own.
 
 This foreach was made using MACROS and not using FUNCTIONS so you don't have to pass variables like arguments and just type them directly
+It's basically just a for loop with extra steps so you can also use continue; and break;
 
 Just call foreach_init() once when the game starts and that's it
 
