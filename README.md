@@ -49,7 +49,7 @@ you can access any variable from the struct containing all the settings in the c
 ```
 fed.cs.<var>;
 ```
-#### the foreach is stackable
+#### this foreach is stackable
 also if you want to return only the key or index just leave the second string empty
 ```
 var inventory = [
