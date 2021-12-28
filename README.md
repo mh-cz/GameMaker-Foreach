@@ -102,9 +102,9 @@ foreach "n" in [2, -2, 0.5] as_range {
 -1.5
 */
 ```
-##if you try to reuse an existing variable it will NOT overwrite the existing variable
-##variable_instance_set simply can't do that
-######this is the biggest problem with this foreach and idk how to solve it
+## if you try to reuse an existing variable it will NOT overwrite the existing variable
+## variable_instance_set simply can't do that
+###### this is the biggest problem with this foreach and idk how to solve it
 
 ```
 var index = 100;
