@@ -3,7 +3,7 @@ Since GM doesn't have foreach I made my own
 
 Just call `foreach_init()` once when the game starts and that's it
 
-This foreach was made using MACROS and not using FUNCTIONS so you don't have to pass variables like arguments and just type them directly. On the other hand it will reserve these keywords: `foreach, in, as_array, as_list, as_map, as_struct, as_grid, as_string, as_range`
+This foreach was made using MACROS and not using FUNCTIONS so you don't have to pass variables like arguments and just type them directly. On the other hand it will reserve these keywords: `foreach, in, as_array, as_list, as_map, as_struct, as_grid, as_string, as_range` and one global variable `fed`
 
 It's basically just a for loop with extra steps so you can also use continue; and break;
 
