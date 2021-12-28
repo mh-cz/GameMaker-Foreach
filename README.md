@@ -10,7 +10,47 @@ It's basically just a for loop with extra steps so you can also use continue; an
 DO NOT create the index/key/value manually. 
 These will get created at runtime so it should say "this variable is used only once". (see the last exemple code)
 
-### Here's some examples
+# Technical stuff
+usage:
+    foreach <args> in <data> as_<data_type> 
+
+possible args:
+     "val" or ["val"]   	 	-returns just values
+     ["val", step]     			-returns values and uses custom counter
+     ["val", step, startfrom]     	-returns values and uses custom counter and custom start position
+     ["key", "val"]     		-returns keys and values
+     ["key", "val", step]     		-returns keys, values and uses custom counter
+     ["key", "val", step, startfrom]    -returns keys, values and uses custom counter and start position
+
+     "key", "val"     string
+          - you can name these variables as you want 
+               (choose unused variable names that do not exists yet)
+          - the first string will always return the key 
+          - the second string will always return the value
+          - "key" is optional and returns the variable used for cycling 
+               (lists, arrays, strings return i, maps, structs return keys, grids return [xpos, ypos])
+
+     step, startfrom     real
+          - both optional
+          - step is what is added to the values used for iteration (i += step while looping)
+          - startfrom is what the iterator starts (i = startfrom when the loop starts)
+
+ possible data types:
+     as_array, as_list, as_map, as_struct, as_grid, as_string, as_range
+
+ note:
+     the system is using a single global variable "fed" (ForEachData)
+          you can rename it, just hit ctrl+f in the script and replace it with whatever name you want
+     
+     there is also a fed.set(val) function for lazy typers so you can simply change the value in the data while looping
+
+     when you type the args name it should be saying that the variable is used only once
+     which is fine because the variable will be created at runtime
+     DO NOT create these string args variables using the "var" keyword because it's not possible to overwrite variables created like this
+     
+     it's still just a loop so you can use break; and continue;
+
+# Examples
 ```
 var arr = ["Bob", "Julie", "John", "Mark"];
 
