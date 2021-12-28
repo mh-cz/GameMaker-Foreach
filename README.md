@@ -24,10 +24,11 @@ possible args:
      ["key", "val", step, startfrom]    -returns keys, values and uses custom counter and start position
 
      "key", "val"     (string)
-          - you can name these variables as you want 
+          - you can name these variables as you want
                (choose unused variable names that do not exists yet)
-          - the first string will always return the key 
-          - the second string will always return the value
+	  - if both are used:
+		  - the first string will always return the key 
+		  - the second string will always return the value
           - "key" is optional and returns the variable used for cycling 
                (lists, arrays, strings return i, maps, structs return keys, grids return [xpos, ypos])
 
