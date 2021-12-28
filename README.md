@@ -16,7 +16,7 @@ usage:
     foreach <args> in <data> as_<data_type> 
 
 possible args:
-     ["val"] (or just "val")   	 	-returns just values
+     ["val"] (or just "val")   	 	-returns only values
      ["val", step]     			-returns values and uses custom counter
      ["val", step, startfrom]     	-returns values and uses custom counter and custom start position
      ["key", "val"]     		-returns keys and values
