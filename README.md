@@ -11,11 +11,12 @@ DO NOT create the index/key/value manually.
 These will get created at runtime so it should say "this variable is used only once". (see the last exemple code)
 
 # Technical stuff
+```
 usage:
     foreach <args> in <data> as_<data_type> 
 
 possible args:
-     "val" or ["val"]   	 	-returns just values
+     ["val"] (or just "val")   	 	-returns just values
      ["val", step]     			-returns values and uses custom counter
      ["val", step, startfrom]     	-returns values and uses custom counter and custom start position
      ["key", "val"]     		-returns keys and values
@@ -49,7 +50,7 @@ possible args:
      DO NOT create these string args variables using the "var" keyword because it's not possible to overwrite variables created like this
      
      it's still just a loop so you can use break; and continue;
-
+```
 # Examples
 ```
 var arr = ["Bob", "Julie", "John", "Mark"];
