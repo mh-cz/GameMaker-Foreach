@@ -27,8 +27,8 @@ possible args:
           - you can name these variables as you want
                (choose unused variable names that do not exists yet)
 	  - if both are used:
-		  - the first string will always return the key 
-		  - the second string will always return the value
+		  - the first string will always return index/key
+		  - the second string will always return value
           - "key" is optional and returns the variable used for cycling 
                (lists, arrays, strings return i, maps, structs return keys, grids return [xpos, ypos])
 
