@@ -118,7 +118,7 @@ foreach "n" in [2, -2, 0.5] as_range {
 ### variable_instance_set() can't do that
 ###### this is the biggest problem with this foreach and idk how to solve it
 ```
-var index = 100;
+var index = 100; // <<<<<<<<<<<< XXXXX
 
 var arr = ["Bob", "Julie", "John", "Mark"];
 
