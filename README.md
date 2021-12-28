@@ -9,6 +9,7 @@ var arr = ["Bob", "Julie", "John", "Mark"];
 foreach "name" in arr as_array {
 	show_debug_message(name);
 }
+
 /* >>
 "Bob"
 "Julie"
@@ -22,6 +23,7 @@ var arr = ["Bob", "Julie", "John", "Mark"];
 foreach ["index", "name"] in arr as_array {
 	show_debug_message(string(index) + " " + string(name));
 }
+
 /* >>
 "0 Bob"
 "1 Julie"
@@ -35,6 +37,7 @@ var arr = ["Bob", "Julie", "John", "Mark"];
 foreach ["index", "name", 1, 2] in arr as_array {
 	show_debug_message(string(index) + " " + string(name));
 }
+
 /* >>
 "2 John"
 "3 Mark"
@@ -65,7 +68,7 @@ foreach ["index", ""] in inventory as_array {
 fed.set example
 ```
 var arr = [1, 2, 3, 4];
-// before foreach >> [1, 2, 3, 4]
+
 foreach "num" in arr as_array {
 	fed.set(num + 1);
 }
@@ -81,6 +84,7 @@ as_range
 foreach "n" in 3 as_range {
 	show_debug_message(n);
 }
+
 /* >>
 0
 1
@@ -91,6 +95,7 @@ foreach "n" in 3 as_range {
 foreach "n" in [2, -2, 0.5] as_range {
 	show_debug_message(n);
 }
+
 /* >>
 2
 1.5
@@ -114,6 +119,7 @@ var arr = ["Bob", "Julie", "John", "Mark"];
 foreach ["index", "name"] in arr as_array {
 	show_debug_message(string(index) + " " + string(name));
 }
+
 /* >>
 "100 Bob"
 "100 Julie"
@@ -127,6 +133,7 @@ you can reuse a variable created by another foreach tho
 foreach ["index", "name"] in arr as_array {
 	show_debug_message(string(index) + " " + string(name));
 }
+
 foreach ["index", "char"] in str as_string {
 	show_debug_message(string(index) + " " + string(char));
 }
