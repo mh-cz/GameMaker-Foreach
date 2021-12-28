@@ -1,6 +1,6 @@
 # GameMaker Foreach
-Since GM doesn't have foreach I made one my own using macros
-Since I'm using macros you don't have to pass variables like arguments to a function and just type them directly
+Since GM doesn't have foreach I made one my own. 
+This foreach was made using MACROS and not a FUNCTION so you don't have to pass variables like arguments to a function and just type them directly
 
 here's some examples
 ```
