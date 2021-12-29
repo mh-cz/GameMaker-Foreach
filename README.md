@@ -32,7 +32,7 @@ possible args:
           - "key":
                - list, array, string 	returns index (real)
 	       - map, struct 		returns keys (string)
-	       - grid 			returns [xpos, ypos] (array or reals)
+	       - grid 			returns [xpos, ypos] (array of reals)
 
      step, startfrom     (real)
           - both optional
