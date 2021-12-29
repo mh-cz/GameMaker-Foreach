@@ -37,7 +37,7 @@ possible args:
      step, startfrom     (real)
           - both optional
           - step is what is added to the values used for iteration (i += step)
-          - startfrom is what the iterator starts (i = startfrom)
+          - startfrom is where the iterator starts (i = startfrom)
 
  possible data types:
      as_array, as_list, as_map, as_struct, as_grid, as_string, as_range
