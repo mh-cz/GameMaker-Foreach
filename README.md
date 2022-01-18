@@ -1,5 +1,5 @@
 # GameMaker Foreach
-Since GM doesn't have foreach I made my own
+A stackable foreach loop for arrays, lists, maps, structs, grids, strings and number ranges
 
 Just call `foreach_init()` once when the game starts and that's it
 
