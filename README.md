@@ -8,7 +8,7 @@ Just call `foreach_init()` once when the game starts and you're good to go
 It's basically just a for loop with extra steps so you can also use `continue;` and `break;`
 
 DO NOT create the index/key/value manually. 
-These will get created at runtime so it should be saying something like "this variable is used only once". (see the last exemple code)
+These will get created at runtime so it should be saying something like "this variable is used only once". (see the last two code examples at the bottom)
 
 # How to use
 ```
