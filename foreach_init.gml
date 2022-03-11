@@ -135,7 +135,7 @@ function foreach_init() {
 			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[# fed.cs.startfrom, fed.cs.startfrom]); \
 			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, [fed.cs.startfrom, fed.cs.startfrom]); \
 		} \
-		if fed.cs.xlen == 0 or fed.cs.ylen == 0 { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
+		if fed.cs.len == 0 { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
 		else for(; true; \
 			{ \
 				fed.cs.i += fed.cs.step; \
@@ -174,11 +174,11 @@ function foreach_init() {
 	// STRUCT
 	#macro as_struct \
 		fed.cs = ds_stack_top(fed.stacks); \
+		fed.cs.keys = variable_struct_get_names(fed.cs.input); \
 		fed.cs.len = array_length(fed.cs.keys); \
 		if fed.cs.len != 0 { \
 			fed.cs.data_type = 5; \
 			fed.break_input(fed.cs); \
-			fed.cs.keys = variable_struct_get_names(fed.cs.input); \
 			fed.cs.key = fed.cs.keys[fed.cs.startfrom]; \
 			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[$ fed.cs.key]); \
 			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.key); \
@@ -203,8 +203,7 @@ function foreach_init() {
 			fed.break_input(fed.cs); \
 			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.from); \
 		} \
-		if fed.cs.from == fed.cs.to \
-			{ ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
+		if fed.cs.from == fed.cs.to { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
 		else for(fed.cs.i = fed.cs.from; true; \
 			{ \
 				fed.cs.i += sign(fed.cs.to - fed.cs.from) * fed.cs.step; \
