@@ -37,7 +37,7 @@ possible args:
 
      "key", "val"     (string)
           - you can name these variables as you want
-               (choose unused variable names that do not exists yet)
+               (choose unused variable names that do not exist yet)
 	  - if both are used:
 		  - the first string will always return index/key
 		  - the second string will always return value
