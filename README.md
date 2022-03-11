@@ -10,6 +10,18 @@ It's basically just a for loop with extra steps so you can also use `continue;` 
 DO NOT create the index/key/value manually. 
 These will get created at runtime so it should be saying something like "this variable is used only once". (see the last two code examples at the bottom)
 
+If you get an error that screams `Variable <unknown_object>.name(blah, blah) cannot be resolved.` that means there is `else` in front of it. Foreach cannot be typed after `else` without being in brackets
+
+```
+NO x
+else foreach ...
+
+YES ✓
+else {
+	foreach ...
+}
+```
+
 # How to use
 ```
 usage:
