@@ -7,9 +7,6 @@ Just call `foreach_init()` once when the game starts and you're good to go
 
 It's basically just a for loop with extra steps so you can also use `continue;` and `break;`
 
-DO NOT create the index/key/value manually. 
-These will get created at runtime so it should be saying something like "this variable is used only once". (see the last two code examples at the bottom)
-
 ### KNOWN ISSUES
 
 If you get an error that screams `Variable <unknown_object>.name(blah, blah) cannot be resolved.` that means there is `else` in front of it. Foreach cannot be typed after `else` without being in brackets because the macro is not a one-liner even tho it looks like it is
@@ -24,6 +21,9 @@ else {
 ```
 
 Another error will occur when you call foreach in a **script _after_ it's been paused**  by something like get_save_filename and get_open_filename because the script no longer remembers the caller's ID which is needed for the variable_instance_set function
+
+Foreach cannot overwrite any already existing variable create the index/key/value manually 
+These will get created at runtime so it's fine when it says "this variable is used only once". (see the last two code examples at the bottom)
 
 # How to use
 ```
