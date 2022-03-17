@@ -23,7 +23,7 @@ else {
 }
 ```
 
-Another error will occur when you call foreach in a **script** that has been paused by something like get_save_filename and get_open_filename
+Another error will occur when you call foreach in a **_script_ after it's been paused**  by something like get_save_filename and get_open_filename
 
 # How to use
 ```
