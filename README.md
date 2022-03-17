@@ -1,7 +1,7 @@
 # GameMaker Foreach
 A stackable foreach loop for arrays, lists, maps, structs, grids, strings and number ranges
 
-This foreach was made using MACROS and not using FUNCTIONS so you don't have to pass variables like arguments. Just type them directly. On the other hand it will reserve these keywords: `foreach, in, as_array, as_list, as_map, as_struct, as_grid, as_string, as_range` and one global variable `fed`
+This foreach was made using MACROS and not using FUNCTIONS so you don't have to pass variables like arguments. Just type them directly. On the other hand it will reserve these keywords: `foreach, in, as_array, as_list, as_map, as_struct, as_grid, as_string, as_range` and one global variable `fed`.
 Plus extra inverse loops: `as_inv_array, as_inv_list, as_inv_string`
 
 Just call `foreach_init()` once when the game starts and you're good to go
