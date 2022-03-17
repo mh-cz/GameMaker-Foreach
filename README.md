@@ -23,7 +23,7 @@ else {
 }
 ```
 
-Another error will occur when you call foreach in a **_script_ after it's been paused**  by something like get_save_filename and get_open_filename
+Another error will occur when you call foreach in a **script _after_ it's been paused**  by something like get_save_filename and get_open_filename because the script no longer remembers the caller's ID which is needed for the variable_instance_set function
 
 # How to use
 ```
