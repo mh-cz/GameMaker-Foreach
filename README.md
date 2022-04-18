@@ -130,7 +130,7 @@ feach "animal_count" in animals as_struct {
 	}
 }
 
-> undef_key now contains string ["cows"]
+> undef_key now contains ["cows"]
 ```
 Number ranges (returned values written in a single line cuz it's long)
 ```
