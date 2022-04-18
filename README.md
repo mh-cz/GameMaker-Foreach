@@ -11,7 +11,7 @@ Reserved keywords: `feach, in, as_array, as_list, as_map, as_struct, as_grid, as
 [2.0.0]
 - Data is returned inside a global struct `fe` so it can be called in anonymous functions
 - You can no longer only use variable names that don't exist yet
-- You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` suffixes (`x_`, `y_` for grid)
+- You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` prefixes (`x_`, `y_` for grid)
 - It's a true one-liner now so you can call it without surrounding it with brackets
 - Map function is simpler to use
 - `BREAK` macro is created to make sure values are mapped before breaking the loop. 
@@ -48,7 +48,7 @@ Array - return value and index
 var arr = ["a","b","c","d"];
 
 feach "v" in arr as_array
-	show_debug_message(string(fe.i_v) + ", " + string(fe.v));  // suffix i_<value_name> returns the index
+	show_debug_message(string(fe.i_v) + ", " + string(fe.v));  // prefix i_<value_name> returns the index
  
 > 0, a
 > 1, b
@@ -94,7 +94,7 @@ Grid - store cell coordinate into each cell
 var grd = ds_grid_create(3,3);
 
 feach "v" in grd as_grid
-	fe.v = [fe.x_v, fe.y_v];  // suffixes x_<value_name>, y_<value_name> returns the x, y grid coords
+	fe.v = [fe.x_v, fe.y_v];  // prefixes x_<value_name>, y_<value_name> returns the x, y grid coords
 
 The grid now contains:
 [0,0] [1,0] [2,0]
@@ -114,7 +114,7 @@ var animals = {
 var undef_keys = [];
 feach "animal_count" in animals as_struct {
 	if is_undefined(fe.animal_count) {
-		array_push(undef_keys, fe.k_animal_count);  // suffix k_<value_name> returns the key
+		array_push(undef_keys, fe.k_animal_count);  // prefix k_<value_name> returns the key
 		fe.animal_count = 0;
 	}
 }
