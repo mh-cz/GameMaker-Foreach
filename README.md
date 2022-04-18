@@ -17,7 +17,7 @@ Reserved keywords: `feach, foreach, in, as_array, as_list, as_map, as_struct, as
 - The code is not a fking mess anymore
 
 ### How to use it
-Call `foreach_init()` once when the game starts and you're good to go.
+Call `foreach_init()` once when the game starts and you're good to go
 
 ### Syntax
 `feach <VALUE_NAME>, <START_FROM>, <STEP> in <DATA> as_<DATA_TYPE>`
@@ -37,6 +37,8 @@ Call `foreach_init()` once when the game starts and you're good to go.
 ####
 - Use the capital `BREAK;` macro to exit the loop when mapping/changing values. This will force the map function to register the changed value immediately instead of the next iteration since there is no next iteration after calling `break`
 - The `CONTINUE;` macro is there just for consistency. You can use regular `continue` if you want
+###
+Just to prevent confusion the macro `feach` is the same as `foreach` just shorter
 
 ## Examples
 Array - return value
