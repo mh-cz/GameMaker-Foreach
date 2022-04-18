@@ -1,20 +1,23 @@
-# GameMaker Foreach v2.0.0
+# GameMaker Foreach v2.0.1
 
 A stackable foreach loop for arrays, lists, maps, structs, grids, strings and number ranges.
 
 This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly. 
 
-Reserved keywords: `feach, foreach, in, as_array, as_list, as_map, as_struct, as_grid, as_string, as_range, BREAK, CONTINUE` + global variable `fe`.
+Reserved keywords: `feach, foreach, in, as_array, as_inv_array as_list, as_inv_list, as_map, as_struct, as_grid, as_inv_grid, as_string, as_inv_string, as_range, BREAK, CONTINUE` + global variable `fe`.
 
 ### Changelog
+[v2.0.1]
++ Inversed loops for number indexed data types: array, list, grid and string
+
 [v2.0.0] Redone from scratch
-- Data is returned inside a global struct `fe` so it can be called in anonymous functions
-- You can no longer only use variable names that don't exist yet
-- You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` prefixes (`x_`, `y_` for grid)
-- It's a true one-liner now so you can call it without surrounding it with brackets
-- Map function is simpler to use
-- `BREAK` and `CONTINUE` macros
-- The code is not a fking mess anymore
++ Data is returned inside a global struct `fe` so it can be called in anonymous functions
++ You can no longer only use variable names that don't exist yet
++ You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` prefixes (`x_`, `y_` for grid)
++ It's a true one-liner now so you can call it without surrounding it with brackets
++ Map function is simpler to use
++ `BREAK` and `CONTINUE` macros
++ The code is not a fking mess anymore
 
 ### How to use it
 Call `foreach_init()` once when the game starts and you're good to go
