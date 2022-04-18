@@ -11,7 +11,7 @@ Reserved keywords: `feach, in, as_array, as_list, as_map, as_struct, as_grid, as
 [2.0.0]
 - Data is returned inside a global struct `fe` so it can be called in anonymous functions
 - You can no longer only use variable names that don't exist yet
-- You only type the return value name. Iterator/Key names are created automatically
+- You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` suffixes
 - It's a true one-liner now so you can call it without surrounding it with brackets
 - Map function is simpler to use
 - The code is not a fking mess anymore
@@ -20,11 +20,38 @@ Reserved keywords: `feach, in, as_array, as_list, as_map, as_struct, as_grid, as
 Call `foreach_init()` once when the game starts and you're good to go.
 
 ### Syntax
-`feach "<VALUE_NAME>", <START_FROM>, <STEP> in <DATA> as_<DATA_TYPE>`
+`feach <VALUE_NAME>, <START_FROM>, <STEP> in <DATA> as_<DATA_TYPE>`
 
 - VALUE_NAME - string, required
 - START_FROM - real, optional
 - STEP - real, optional
 - DATA - any supported data
 - DATA_TYPE - type of the entered data
+
+## Examples
+Array - return value
+```
+var arr = [1,2,3,4];
+
+feach "v" in arr as_array
+	show_debug_message(fe.v);
+ 
+> 1
+> 2
+> 3
+> 4
+```
+
+Array - return value and index
+```
+var arr = ["a","b","c","d"];
+
+feach "v" in arr as_array
+	show_debug_message(string(fe.i_v) + ", " + string(fe.v));
+ 
+> 0, a
+> 1, b
+> 2, c
+> 3, d
+```
 
