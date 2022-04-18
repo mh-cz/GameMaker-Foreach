@@ -13,8 +13,7 @@ Reserved keywords: `feach, foreach, in, as_array, as_list, as_map, as_struct, as
 - You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` prefixes (`x_`, `y_` for grid)
 - It's a true one-liner now so you can call it without surrounding it with brackets
 - Map function is simpler to use
-- `BREAK` macro is created to make sure values are mapped before breaking the loop. 
-- `CONTINUE` macro is there just for consistency. You can use regular `continue` if you want
+- `BREAK` and `CONTINUE` macros
 - The code is not a fking mess anymore
 
 ### How to use it
@@ -29,7 +28,8 @@ Call `foreach_init()` once when the game starts and you're good to go.
 - DATA - any supported data
 - DATA_TYPE - type of the entered data
 
-Use capital `BREAK;` macro to exit the loop when mapping/changing values. This will force the map function to register the changed value immediately instead of the next iteration. (there is no next iteration after calling `break`)
+- Use capital `BREAK;` macro to exit the loop when mapping/changing values. This will force the map function to register the changed value immediately instead of the next iteration. (there is no next iteration after calling `break`).
+- The `CONTINUE;` macro is there just for consistency. You can use regular `continue` if you want
 
 ## Examples
 Array - return value
