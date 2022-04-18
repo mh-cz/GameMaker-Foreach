@@ -122,7 +122,20 @@ feach "animal_count" in animals as_struct {
 
 > undef_key now contains string ["cows"]
 ```
+Number ranges
+```
+feach "v" in 5 as_range show_debug_message(fe.v);
+> 0, 1, 2, 3, 4
 
+feach "v" in 2, 5 as_range show_debug_message(fe.v);
+> 2, 3, 4
+
+feach "v" in 2, -2 as_range show_debug_message(fe.v);
+> 2, 1, 0, -1
+
+feach "v" in 2, -2, 0.5 as_range show_debug_message(fe.v);
+> 2, 1.5, 1, 0.5, 0, -0.5, -1, -1.5
+```
 Stackable like regular for loop
 ```
 feach "v" in some_arr as_array
