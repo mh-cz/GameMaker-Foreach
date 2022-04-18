@@ -27,8 +27,8 @@ Call `foreach_init()` once when the game starts and you're good to go.
 - STEP - real, optional
 - DATA - any supported data
 - DATA_TYPE - type of the entered data
-
-- Use capital `BREAK;` macro to exit the loop when mapping/changing values. This will force the map function to register the changed value immediately instead of the next iteration. (there is no next iteration after calling `break`).
+####
+- Use capital `BREAK;` macro to exit the loop when mapping/changing values. This will force the map function to register the changed value immediately instead of the next iteration since there is no next iteration after calling `break`
 - The `CONTINUE;` macro is there just for consistency. You can use regular `continue` if you want
 
 ## Examples
