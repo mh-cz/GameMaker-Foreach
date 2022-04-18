@@ -146,7 +146,7 @@ if !is_array(data) {
 	do_something(data);
 	do_something_else(data);
 }
-else feach "v" in some_arr as_array {  // this wasn't possible before
+else feach "v" in some_arr as_array {  // running foreach right after "else" wasn't possible before
 	do_something(fe.v);
 	do_something_else(fe.v);
 }
