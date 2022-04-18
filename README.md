@@ -33,7 +33,7 @@ Call `foreach_init()` once when the game starts and you're good to go.
 ## Examples
 Array - return value
 ```
-var arr = [1,2,3,4];
+var arr = [1, 2, 3, 4];
 
 feach "v" in arr as_array
 	show_debug_message(fe.v);
@@ -57,9 +57,9 @@ feach "v" in arr as_array
 ```
 Array - simple map
 ```
-var arr = [1,2,3,4];
+var arr = [1, 2, 3, 4];
 var multip = 10;
-feach "v" in arr as_array fe.v *= multip;
+feach "num" in arr as_array fe.num *= multip;
 
 The array now contains: [10, 20, 30, 40]
 ```
