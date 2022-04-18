@@ -5,7 +5,7 @@ A stackable foreach loop for arrays, lists, maps, structs, grids, strings and nu
 
 This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly. 
 
-Reserved keywords: `feach, in, as_array, as_list, as_map, as_struct, as_grid, as_string, as_range` + global variable `fe`.
+Reserved keywords: `feach, in, as_array, as_list, as_map, as_struct, as_grid, as_string, as_range, BREAK, CONTINUE` + global variable `fe`.
 
 ### Changelog
 [2.0.0]
@@ -14,6 +14,8 @@ Reserved keywords: `feach, in, as_array, as_list, as_map, as_struct, as_grid, as
 - You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` suffixes
 - It's a true one-liner now so you can call it without surrounding it with brackets
 - Map function is simpler to use
+- `BREAK` macro is created to make sure values are mapped before exiting the loop. 
+- `CONTINUE` macro is there just for consistency. You can use regular `continue` if you want
 - The code is not a fking mess anymore
 
 ### How to use it
@@ -41,7 +43,6 @@ feach "v" in arr as_array
 > 3
 > 4
 ```
-
 Array - return value and index
 ```
 var arr = ["a","b","c","d"];
@@ -54,4 +55,22 @@ feach "v" in arr as_array
 > 2, c
 > 3, d
 ```
+List - change some values inside
+```
+var lst = ds_list_create();
+lst[| 0] = 1; 
+lst[| 1] = 2;
+lst[| 2] = 3; 
+lst[| 3] = 4;
 
+feach "v" in lst as_list {
+	if fe.i_v == 1 fe.v *= -1;
+	if fe.i_v == 2 fe.v = sqr(fe.v);
+}
+
+The list now contains:
+0 -> 1
+1 -> -2
+2 -> 4
+3 -> 4
+```
