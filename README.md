@@ -76,7 +76,7 @@ lst[| 3] = 4;
 var add = 10;
 
 feach "v" in lst as_list {
-	if fe.i_v == 1 fe.v *= -1;
+	     if fe.i_v == 1 fe.v *= -1;
 	else if fe.i_v == 2 fe.v = sqr(fe.v);
 	else if fe.i_v == 3 fe.v += add;
 }
