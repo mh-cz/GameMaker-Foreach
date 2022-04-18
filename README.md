@@ -139,14 +139,15 @@ feach "v" in some_arr as_array {
 	}
 }
 ```
-One-liner possibility
+One-liner possibilities
 ```
-if something {
-	feach "v" in some_arr1 as_array {
-		do_something();
-	}
-else feach "v" in some_arr2 as_array {
-	do_something();
+if !is_array(data) {
+	do_something(data);
+	do_something_else(data);
+}
+else feach "v" in some_arr as_array {  // this wasn't possible before
+	do_something(fe.v);
+	do_something_else(fe.v);
 }
 ```
 
