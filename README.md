@@ -59,7 +59,9 @@ Array - simple map
 ```
 var arr = [1, 2, 3, 4];
 var multip = 10;
-feach "num" in arr as_array fe.num *= multip;
+
+feach "num" in arr as_array
+	fe.num *= multip;
 
 The array now contains: [10, 20, 30, 40]
 ```
@@ -117,3 +119,34 @@ feach "animal_count" in animals as_struct {
 
 > undef_key now contains string ["cows"]
 ```
+
+Stackable like regular for loop
+```
+feach "v" in some_arr as_array
+	feach "v" in some_struct as_struct
+		feach "v" in some_map as_map
+			do_something();
+```
+or 
+```
+feach "v" in some_arr as_array {
+	do_something();
+	feach "v" in some_struct as_struct {
+		do_something_else();
+		feach "v" in some_map as_map {
+			do_something_else_else();
+		}
+	}
+}
+```
+One-liner possibility
+```
+if something {
+	feach "v" in some_arr1 as_array {
+		do_something();
+	}
+else feach "v" in some_arr2 as_array {
+	do_something();
+}
+```
+
