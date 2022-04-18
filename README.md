@@ -14,7 +14,7 @@ Reserved keywords: `feach, in, as_array, as_list, as_map, as_struct, as_grid, as
 - You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` suffixes (`x_`, `y_` for grid)
 - It's a true one-liner now so you can call it without surrounding it with brackets
 - Map function is simpler to use
-- `BREAK` macro is created to make sure values are mapped before exiting the loop. 
+- `BREAK` macro is created to make sure values are mapped before breaking the loop. 
 - `CONTINUE` macro is there just for consistency. You can use regular `continue` if you want
 - The code is not a fking mess anymore
 
@@ -54,6 +54,14 @@ feach "v" in arr as_array
 > 1, b
 > 2, c
 > 3, d
+```
+Array - simple map
+```
+var arr = [1,2,3,4];
+var multip = 10;
+feach "v" in arr as_array fe.v *= multip;
+
+The array now contains: [10, 20, 30, 40]
 ```
 List - change some values inside
 ```
