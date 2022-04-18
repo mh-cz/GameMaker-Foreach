@@ -1,5 +1,4 @@
 // v2.0.1
-
 function foreach_init() {
 	
 	globalvar fe;
@@ -82,37 +81,38 @@ function foreach_init() {
 				if !(fe._.cs.i < fe._.cs.len) return fe._.exit_loop();
 				
 				var i = fe._.cs.inv ? fe._.cs.len-1 - fe._.cs.i : fe._.cs.i;
+				var name = fe._.cs.args[0];
 				
 				switch(fe._.cs.datatype) {
 					case fe._.dt_array:
-						fe[$ "i_"+fe._.cs.args[0]] = i;
-						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][@ i];
+						fe[$ "i_"+name] = i;
+						fe[$ name] = fe._.cs.data[0][@ i];
 						break;
 					case fe._.dt_list:
-						fe[$ "i_"+fe._.cs.args[0]] = i;
-						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][| i];
+						fe[$ "i_"+name] = i;
+						fe[$ name] = fe._.cs.data[0][| i];
 						break;
 					case fe._.dt_string:
-						fe[$ "i_"+fe._.cs.args[0]] = i;
-						fe[$ fe._.cs.args[0]] = string_char_at(fe._.cs.data[0], i + 1);
+						fe[$ "i_"+name] = i;
+						fe[$ name] = string_char_at(fe._.cs.data[0], i + 1);
 						break;
 					case fe._.dt_grid:
 						fe._.cs.wi = i mod fe._.cs.wlen;
 						fe._.cs.hi = i div fe._.cs.hlen;
-						fe[$ "i_"+fe._.cs.args[0]] = i;
-						fe[$ "x_"+fe._.cs.args[0]] = fe._.cs.wi;
-						fe[$ "y_"+fe._.cs.args[0]] = fe._.cs.hi;
-						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][# fe._.cs.wi, fe._.cs.hi];
+						fe[$ "i_"+name] = i;
+						fe[$ "x_"+name] = fe._.cs.wi;
+						fe[$ "y_"+name] = fe._.cs.hi;
+						fe[$ name] = fe._.cs.data[0][# fe._.cs.wi, fe._.cs.hi];
 						break;
 					case fe._.dt_map:
 						fe._.cs.key = fe._.cs.keys[fe._.cs.i];
-						fe[$ "k_"+fe._.cs.args[0]] = fe._.cs.key;
-						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][? fe._.cs.key];
+						fe[$ "k_"+name] = fe._.cs.key;
+						fe[$ name] = fe._.cs.data[0][? fe._.cs.key];
 						break;
 					case fe._.dt_struct:
 						fe._.cs.key = fe._.cs.keys[fe._.cs.i];
-						fe[$ "k_"+fe._.cs.args[0]] = fe._.cs.key;
-						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][$ fe._.cs.key];
+						fe[$ "k_"+name] = fe._.cs.key;
+						fe[$ name] = fe._.cs.data[0][$ fe._.cs.key];
 						break;
 				}
 				return true;
@@ -122,13 +122,14 @@ function foreach_init() {
 				if !(fe._.cs.i < fe._.cs.len) return false;
 				
 				var i = fe._.cs.inv ? fe._.cs.len-1 - fe._.cs.i : fe._.cs.i;
+				var name = fe._.cs.args[0];
 				
 				switch(fe._.cs.datatype) {
-					case fe._.dt_array:  fe._.cs.data[0][@ i] = fe[$ fe._.cs.args[0]]; break;
-					case fe._.dt_list:   fe._.cs.data[0][| i] = fe[$ fe._.cs.args[0]]; break;
-					case fe._.dt_grid:	 fe._.cs.data[0][# fe._.cs.wi, fe._.cs.hi] = fe[$ fe._.cs.args[0]]; break;
-					case fe._.dt_map:	 fe._.cs.data[0][? fe._.cs.key] = fe[$ fe._.cs.args[0]]; break;
-					case fe._.dt_struct: fe._.cs.data[0][$ fe._.cs.key] = fe[$ fe._.cs.args[0]]; break;
+					case fe._.dt_array:  fe._.cs.data[0][@ i] = fe[$ name]; break;
+					case fe._.dt_list:   fe._.cs.data[0][| i] = fe[$ name]; break;
+					case fe._.dt_grid:	 fe._.cs.data[0][# fe._.cs.wi, fe._.cs.hi] = fe[$ name]; break;
+					case fe._.dt_map:	 fe._.cs.data[0][? fe._.cs.key] = fe[$ name]; break;
+					case fe._.dt_struct: fe._.cs.data[0][$ fe._.cs.key] = fe[$ name]; break;
 				}
 			},
 			
@@ -234,3 +235,4 @@ function foreach_init() {
 		], _fePREPARE_ = fe._.prepare_range(_feARGS_, _feDATA_, fe._.dt_range); fe._.return_num(); fe._.next_num())
 	
 }
+
