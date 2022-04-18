@@ -48,7 +48,7 @@ Array - return value and index
 var arr = ["a","b","c","d"];
 
 feach "v" in arr as_array
-	show_debug_message(string(fe.i_v) + ", " + string(fe.v));
+	show_debug_message(string(fe.i_v) + ", " + string(fe.v));  // suffix i_<name> for index
  
 > 0, a
 > 1, b
@@ -76,13 +76,33 @@ The list now contains:
 ```
 Grid - store cell coordinate into each cell
 ```
-var grd = ds_grid_create(4,4);
+var grd = ds_grid_create(3,3);
 
 feach "v" in grd as_grid
-	fe.v = [fe.x_v, fe.y_v];
+	fe.v = [fe.x_v, fe.y_v];  // suffix x_<name>, y_<name> for x, y grid coords
 
 The grid now contains:
-[0,0] [1,0]
-[0,1] [1,1]
+[0,0] [1,0] [2,0]
+[0,1] [1,1] [2,1]
+[0,2] [1,2] [2,2]
 ```
+Struct - loop until undefined value is found and return the key of the undefined value
+```
+var animals = {
+	dogs: 10,
+	cats: 4,
+	rats: 9,
+	cows: undefined,
+	goats: 2,
+};
 
+var undef_key = "";
+feach "animal_count" in animals as_struct {
+	if is_undefined(fe.animal_count) {
+		undef_key = fe.k_animal_count;  // suffix k_<name> for key
+		BREAK;
+	}
+}
+
+> undef_key now contains string "cows"
+```
