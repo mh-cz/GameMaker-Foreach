@@ -5,7 +5,7 @@ A stackable foreach loop for arrays, lists, maps, structs, grids, strings and nu
 
 This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly. 
 
-Reserved keywords: `feach, in, as_array, as_list, as_map, as_struct, as_grid, as_string, as_range, BREAK, CONTINUE` + global variable `fe`.
+Reserved keywords: `feach, foreach, in, as_array, as_list, as_map, as_struct, as_grid, as_string, as_range, BREAK, CONTINUE` + global variable `fe`.
 
 ### Changelog
 [2.0.0]
