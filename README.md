@@ -22,7 +22,7 @@ Call `foreach_init()` once when the game starts and you're good to go
 ### Syntax
 `feach <VALUE_NAME>, <START_FROM>, <STEP> in <DATA> as_<DATA_TYPE>`
 
-- VALUE_NAME - string, required
+- NAME - string, required
 - START_FROM - real, optional (default 0)
 - STEP - real, optional (default 1)
 - DATA - any supported data
@@ -30,7 +30,7 @@ Call `foreach_init()` once when the game starts and you're good to go
 
 ##### Number range syntax
 
-`feach <VALUE_NAME> in <FROM>, <TO>, <STEP> as_range`
+`feach <NAME> in <FROM>, <TO>, <STEP> as_range`
 - FROM - real, optional (default 0)
 - TO - real, required 
 - STEP - real, optional (default 1)
@@ -59,7 +59,7 @@ Array - return value and index
 var arr = ["a","b","c","d"];
 
 feach "v" in arr as_array
-	show_debug_message(string(fe.i_v) + ", " + string(fe.v));  // prefix i_<value_name> returns the index
+	show_debug_message(string(fe.i_v) + ", " + string(fe.v));  // prefix i_<name> returns the index
  
 > 0, a
 > 1, b
@@ -105,7 +105,7 @@ Grid - store cell coordinate into each cell
 var grd = ds_grid_create(3,3);
 
 feach "v" in grd as_grid
-	fe.v = [fe.x_v, fe.y_v];  // prefixes x_<value_name>, y_<value_name> returns the x, y grid coords
+	fe.v = [fe.x_v, fe.y_v];  // prefixes x_<name>, y_<name> returns the x, y grid coords
 
 The grid now contains:
 [0,0] [1,0] [2,0]
@@ -125,7 +125,7 @@ var animals = {
 var undef_keys = [];
 feach "animal_count" in animals as_struct {
 	if is_undefined(fe.animal_count) {
-		array_push(undef_keys, fe.k_animal_count);  // prefix k_<value_name> returns the key
+		array_push(undef_keys, fe.k_animal_count);  // prefix k_<name> returns the key
 		fe.animal_count = 0;
 	}
 }
