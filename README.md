@@ -11,7 +11,7 @@ Reserved keywords: `feach, in, as_array, as_list, as_map, as_struct, as_grid, as
 [2.0.0]
 - Data is returned inside a global struct `fe` so it can be called in anonymous functions
 - You can no longer only use variable names that don't exist yet
-- You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` suffixes
+- You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` suffixes (`x_`, `y_` for grid)
 - It's a true one-liner now so you can call it without surrounding it with brackets
 - Map function is simpler to use
 - `BREAK` macro is created to make sure values are mapped before exiting the loop. 
@@ -74,3 +74,15 @@ The list now contains:
 2 -> 4
 3 -> 4
 ```
+Grid - store cell coordinate into each cell
+```
+var grd = ds_grid_create(4,4);
+
+feach "v" in grd as_grid
+	fe.v = [fe.x_v, fe.y_v];
+
+The grid now contains:
+[0,0] [1,0]
+[0,1] [1,1]
+```
+
