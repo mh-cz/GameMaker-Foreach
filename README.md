@@ -67,15 +67,15 @@ The array now contains: [10, 20, 30, 40]
 ```
 List - change some values inside
 ```
-var lst = ds_list_create();
-lst[| 0] = 1; 
-lst[| 1] = 2;
-lst[| 2] = 3; 
-lst[| 3] = 4;
+var some_values = ds_list_create();
+some_values[| 0] = 1; 
+some_values[| 1] = 2;
+some_values[| 2] = 3; 
+some_values[| 3] = 4;
 
 var add = 10;
 
-feach "v" in lst as_list {
+feach "v" in some_values as_list {
 	     if fe.i_v == 1 fe.v *= -1;
 	else if fe.i_v == 2 fe.v = sqr(fe.v);
 	else if fe.i_v == 3 fe.v += add;
