@@ -1,4 +1,4 @@
-// v2.0.0
+// v2.0.1
 function foreach_init() {
 	
 	globalvar fe;
@@ -31,16 +31,18 @@ function foreach_init() {
 					datatype: -1,
 					from: 0,
 					to: 0,
+					inv: false,
 				});
 				fe._.cs = ds_stack_top(fe._.stack);
 			},
 			
-			prepare_loop: function(args, data, datatype) {
+			prepare_loop: function(args, data, datatype, inversed = false) {
 				
 				fe._.new_stack();
 				fe._.cs.args = args;
 				fe._.cs.data = data;
 				fe._.cs.datatype = datatype;
+				fe._.cs.inv = inversed;
 				
 				var arg_l = array_length(args);
 				if arg_l >= 2 fe._.cs.i = args[1];
@@ -78,23 +80,25 @@ function foreach_init() {
 			return_data: function() {
 				if !(fe._.cs.i < fe._.cs.len) return fe._.exit_loop();
 				
+				var i = fe._.cs.inv ? fe._.cs.len-1 - fe._.cs.i : fe._.cs.i;
+				
 				switch(fe._.cs.datatype) {
 					case fe._.dt_array:
-						fe[$ "i_"+fe._.cs.args[0]] = fe._.cs.i;
-						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][@ fe._.cs.i];
+						fe[$ "i_"+fe._.cs.args[0]] = i;
+						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][@ i];
 						break;
 					case fe._.dt_list:
-						fe[$ "i_"+fe._.cs.args[0]] = fe._.cs.i;
-						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][| fe._.cs.i];
+						fe[$ "i_"+fe._.cs.args[0]] = i;
+						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][| i];
 						break;
 					case fe._.dt_string:
-						fe[$ "i_"+fe._.cs.args[0]] = fe._.cs.i;
-						fe[$ fe._.cs.args[0]] = string_char_at(fe._.cs.data[0], fe._.cs.i + 1);
+						fe[$ "i_"+fe._.cs.args[0]] = i;
+						fe[$ fe._.cs.args[0]] = string_char_at(fe._.cs.data[0], i + 1);
 						break;
 					case fe._.dt_grid:
-						fe._.cs.wi = fe._.cs.i mod fe._.cs.wlen;
-						fe._.cs.hi = fe._.cs.i div fe._.cs.hlen;
-						fe[$ "i_"+fe._.cs.args[0]] = fe._.cs.i;
+						fe._.cs.wi = i mod fe._.cs.wlen;
+						fe._.cs.hi = i div fe._.cs.hlen;
+						fe[$ "i_"+fe._.cs.args[0]] = i;
 						fe[$ "x_"+fe._.cs.args[0]] = fe._.cs.wi;
 						fe[$ "y_"+fe._.cs.args[0]] = fe._.cs.hi;
 						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][# fe._.cs.wi, fe._.cs.hi];
@@ -116,9 +120,11 @@ function foreach_init() {
 			map: function() {
 				if !(fe._.cs.i < fe._.cs.len) return false;
 				
+				var i = fe._.cs.inv ? fe._.cs.len-1 - fe._.cs.i : fe._.cs.i;
+				
 				switch(fe._.cs.datatype) {
-					case fe._.dt_array:  fe._.cs.data[0][@ fe._.cs.i] = fe[$ fe._.cs.args[0]]; break;
-					case fe._.dt_list:   fe._.cs.data[0][| fe._.cs.i] = fe[$ fe._.cs.args[0]]; break;
+					case fe._.dt_array:  fe._.cs.data[0][@ i] = fe[$ fe._.cs.args[0]]; break;
+					case fe._.dt_list:   fe._.cs.data[0][| i] = fe[$ fe._.cs.args[0]]; break;
 					case fe._.dt_grid:	 fe._.cs.data[0][# fe._.cs.wi, fe._.cs.hi] = fe[$ fe._.cs.args[0]]; break;
 					case fe._.dt_map:	 fe._.cs.data[0][? fe._.cs.key] = fe[$ fe._.cs.args[0]]; break;
 					case fe._.dt_struct: fe._.cs.data[0][$ fe._.cs.key] = fe[$ fe._.cs.args[0]]; break;
@@ -192,18 +198,30 @@ function foreach_init() {
 	
 	#macro in \
 		], _feDATA_ = [
-		
+	
 	#macro as_array \
 		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_array); fe._.return_data(); fe._.next())
+		
+	#macro as_inv_array \
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_array, true); fe._.return_data(); fe._.next())
 		
 	#macro as_list \
 		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_list); fe._.return_data(); fe._.next())
 		
+	#macro as_inv_list \
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_list, true); fe._.return_data(); fe._.next())
+		
 	#macro as_string \
 		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_string); fe._.return_data(); fe._.next())
+		
+	#macro as_inv_string \
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_string, true); fe._.return_data(); fe._.next())
 	
 	#macro as_grid \
 		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_grid); fe._.return_data(); fe._.next())
+	
+	#macro as_inv_grid \
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_grid, true); fe._.return_data(); fe._.next())
 	
 	#macro as_map \
 		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_map); fe._.return_data(); fe._.next())
