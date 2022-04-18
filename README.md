@@ -39,7 +39,7 @@ Call `foreach_init()` once when the game starts and you're good to go
 - The `CONTINUE;` macro is there just for consistency. You can use regular `continue` if you want
 ###
 ###
-Just to avoid confusion.. The macro `feach` is the same as `foreach`. I just like shortening things
+Just to avoid confusion.. The macro `feach` is the same as macro `foreach`. I just like using the shorter version
 
 ## Examples
 Array - return value
