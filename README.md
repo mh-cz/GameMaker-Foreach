@@ -81,11 +81,13 @@ feach "v" in some_values as_list {
 	else if fe.i_v == 3 fe.v += add;
 }
 
-The list now contains:
-0 -> 1
-1 -> -2
-2 -> 4
-3 -> 14
+// now return them
+feach "v" in some_values as_list show_debug_message(fe.v);
+
+> 1
+> -2
+> 9
+> 14
 ```
 Grid - store cell coordinate into each cell
 ```
