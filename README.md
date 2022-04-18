@@ -38,7 +38,8 @@ Call `foreach_init()` once when the game starts and you're good to go
 - Use the capital `BREAK;` macro to exit the loop when mapping/changing values. This will force the map function to register the changed value immediately instead of the next iteration since there is no next iteration after calling `break`
 - The `CONTINUE;` macro is there just for consistency. You can use regular `continue` if you want
 ###
-Just to prevent confusion the macro `feach` is the same as `foreach` just shorter
+###
+Just to avoid confusion.. The macro `feach` is the same as `foreach`. I just like shortening things
 
 ## Examples
 Array - return value
