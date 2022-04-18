@@ -1,3 +1,4 @@
+// v2.0.0
 function foreach_init() {
 	
 	globalvar fe;
