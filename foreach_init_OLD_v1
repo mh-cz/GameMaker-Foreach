@@ -1,4 +1,3 @@
-
 function foreach_init() {
 	
 	globalvar fed;
