@@ -23,10 +23,17 @@ Call `foreach_init()` once when the game starts and you're good to go.
 `feach <VALUE_NAME>, <START_FROM>, <STEP> in <DATA> as_<DATA_TYPE>`
 
 - VALUE_NAME - string, required
-- START_FROM - real, optional
-- STEP - real, optional
+- START_FROM - real, optional (default 0)
+- STEP - real, optional (default 1)
 - DATA - any supported data
 - DATA_TYPE - type of the entered data
+
+##### Number range syntax
+
+`feach <VALUE_NAME> in <FROM>, <TO>, <STEP> as_range`
+- FROM - real, optional (default 0)
+- TO - real, required 
+- STEP - real, optional (default 1)
 ####
 - Use the capital `BREAK;` macro to exit the loop when mapping/changing values. This will force the map function to register the changed value immediately instead of the next iteration since there is no next iteration after calling `break`
 - The `CONTINUE;` macro is there just for consistency. You can use regular `continue` if you want
@@ -122,18 +129,26 @@ feach "animal_count" in animals as_struct {
 
 > undef_key now contains string ["cows"]
 ```
-Number ranges
+Number ranges (returned values written in a single line cuz it's long)
 ```
-feach "v" in 5 as_range show_debug_message(fe.v);
+feach "v" in 5 as_range 
+	show_debug_message(fe.v);
+	
 > 0, 1, 2, 3, 4
 
-feach "v" in 2, 5 as_range show_debug_message(fe.v);
+feach "v" in 2, 5 as_range 
+	show_debug_message(fe.v);
+	
 > 2, 3, 4
 
-feach "v" in 2, -2 as_range show_debug_message(fe.v);
+feach "v" in 2, -2 as_range 
+	show_debug_message(fe.v);
+	
 > 2, 1, 0, -1
 
-feach "v" in 2, -2, 0.5 as_range show_debug_message(fe.v);
+feach "v" in 2, -2, 0.5 as_range 
+	show_debug_message(fe.v);
+	
 > 2, 1.5, 1, 0.5, 0, -0.5, -1, -1.5
 ```
 Stackable like regular for loop
