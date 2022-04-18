@@ -156,17 +156,17 @@ feach "v" in 2, -2, 0.5 as_range
 ```
 Stackable like regular for loop
 ```
-feach "v" in some_arr as_array
-	feach "v" in some_struct as_struct
-		feach "v" in some_map as_map
+feach "v1" in some_arr as_array
+	feach "v2" in some_struct as_struct
+		feach "v3" in some_map as_map
 			do_something();
 
 
-feach "v" in some_arr as_array {
+feach "v1" in some_arr as_array {
 	do_something();
-	feach "v" in some_struct as_struct {
+	feach "v2" in some_struct as_struct {
 		do_something_else();
-		feach "v" in some_map as_map {
+		feach "v3" in some_map as_map {
 			do_something_else_else();
 		}
 	}
