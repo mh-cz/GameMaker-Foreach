@@ -20,7 +20,7 @@ Reserved keywords: `feach, foreach, in, as_array, as_list, as_map, as_struct, as
 Call `foreach_init()` once when the game starts and you're good to go
 
 ### Syntax
-`feach <VALUE_NAME>, <START_FROM>, <STEP> in <DATA> as_<DATA_TYPE>`
+`feach <NAME>, <START_FROM>, <STEP> in <DATA> as_<DATA_TYPE>`
 
 - NAME - string, required
 - START_FROM - real, optional (default 0)
