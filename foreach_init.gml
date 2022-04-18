@@ -1,275 +1,216 @@
 function foreach_init() {
 	
-	globalvar fed;
-	fed = {
-		stacks: ds_stack_create(),
-		cs : -1, // current stack in loop
-		
-		break_input: function(stack) {
-			if is_array(stack.name) { 
-				var name_overwrite = "";
-				var len = array_length(stack.name);
+	globalvar fe;
+	fe = {
+		_: {
+			stack: ds_stack_create(), 
+			cs: -1,
+			
+			dt_array: 0,
+			dt_string: 1,
+			dt_list: 2,
+			dt_map: 3,
+			dt_struct: 4,
+			dt_grid: 5,
+			dt_range: 6,
+			
+			new_stack: function() {
+				ds_stack_push(fe._.stack, { 
+					args: [], 
+					data: [],
+					i: 0, 
+					step: 1, 
+					key: "", 
+					keys: [],
+					len: 0,
+					wlen: 0,
+					hlen: 0,
+					wi: 0,
+					hi: 0,
+					datatype: -1,
+					from: 0,
+					to: 0,
+				});
+				fe._.cs = ds_stack_top(fe._.stack);
+			},
+			
+			prepare_loop: function(args, data, datatype) {
 				
-				if len == 1 name_overwrite = stack.name[0];
-				else if len > 1 {
-					if is_string(stack.name[0]) and is_string(stack.name[1]) {
-						stack.iname = stack.name[0];
-						name_overwrite = stack.name[1];
-						if len >= 3 stack.step = stack.name[2];
-						if len == 4 stack.startfrom = stack.name[3];
-					}
-					else if is_string(stack.name[0]) and is_real(stack.name[1]) {
-						name_overwrite = stack.name[0];
-						stack.step = stack.name[1];
-						if len == 3 stack.startfrom = stack.name[2];
+				fe._.new_stack();
+				fe._.cs.args = args;
+				fe._.cs.data = data;
+				fe._.cs.datatype = datatype;
+				
+				var arg_l = array_length(args);
+				if arg_l >= 2 fe._.cs.i = args[1];
+				if arg_l == 3 fe._.cs.step = args[2];
+				
+				if arg_l > 0 and is_string(args[0]) {
+					switch(datatype) {
+						case fe._.dt_array:
+							fe._.cs.len = array_length(data[0]);
+							break;
+						case fe._.dt_list:
+							fe._.cs.len = ds_list_size(data[0]);
+							break;
+						case fe._.dt_string:
+							fe._.cs.len = string_length(data[0]);
+							break;
+						case fe._.dt_grid:
+							fe._.cs.wlen = ds_grid_width(data[0]);
+							fe._.cs.hlen = ds_grid_height(data[0]);
+							fe._.cs.len = fe._.cs.wlen * fe._.cs.hlen;
+							break;
+						case fe._.dt_map:
+							fe._.cs.keys = ds_map_keys_to_array(data[0]);
+							fe._.cs.len = array_length(fe._.cs.keys);
+							break;
+						case fe._.dt_struct:
+							fe._.cs.keys = variable_struct_get_names(data[0]);
+							fe._.cs.len = array_length(fe._.cs.keys);
+							break;
 					}
 				}
-				stack.name = name_overwrite;
-			}
-		},
-		
-		break_range_arr: function(stack) {
-			if is_array(stack.input) {
-				var len = array_length(stack.input);
-				if len == 1 stack.to = stack.input[0];
-				else if len >= 2 {
-					stack.from = stack.input[0];
-					stack.to = stack.input[1];
-					if len == 3 stack.step = (stack.input[2] == 0) ? 1 : abs(stack.input[2]);
+				return 0;
+			},
+			
+			return_data: function() {
+				if !(fe._.cs.i < fe._.cs.len) return fe._.exit_loop();
+				
+				switch(fe._.cs.datatype) {
+					case fe._.dt_array:
+						fe[$ "i_"+fe._.cs.args[0]] = fe._.cs.i;
+						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][@ fe._.cs.i];
+						break;
+					case fe._.dt_list:
+						fe[$ "i_"+fe._.cs.args[0]] = fe._.cs.i;
+						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][| fe._.cs.i];
+						break;
+					case fe._.dt_string:
+						fe[$ "i_"+fe._.cs.args[0]] = fe._.cs.i;
+						fe[$ fe._.cs.args[0]] = string_char_at(fe._.cs.data[0], fe._.cs.i + 1);
+						break;
+					case fe._.dt_grid:
+						fe._.cs.wi = fe._.cs.i mod fe._.cs.wlen;
+						fe._.cs.hi = fe._.cs.i div fe._.cs.hlen;
+						fe[$ "i_"+fe._.cs.args[0]] = fe._.cs.i;
+						fe[$ "x_"+fe._.cs.args[0]] = fe._.cs.wi;
+						fe[$ "y_"+fe._.cs.args[0]] = fe._.cs.hi;
+						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][# fe._.cs.wi, fe._.cs.hi];
+						break;
+					case fe._.dt_map:
+						fe._.cs.key = fe._.cs.keys[fe._.cs.i];
+						fe[$ "k_"+fe._.cs.args[0]] = fe._.cs.key;
+						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][? fe._.cs.key];
+						break;
+					case fe._.dt_struct:
+						fe._.cs.key = fe._.cs.keys[fe._.cs.i];
+						fe[$ "k_"+fe._.cs.args[0]] = fe._.cs.key;
+						fe[$ fe._.cs.args[0]] = fe._.cs.data[0][$ fe._.cs.key];
+						break;
 				}
-			}
-			else stack.to = stack.input;
+				return true;
+			},
+			
+			map: function() {
+				if !(fe._.cs.i < fe._.cs.len) return false;
+				
+				switch(fe._.cs.datatype) {
+					case fe._.dt_array:  fe._.cs.data[0][@ fe._.cs.i] = fe[$ fe._.cs.args[0]]; break;
+					case fe._.dt_list:   fe._.cs.data[0][| fe._.cs.i] = fe[$ fe._.cs.args[0]]; break;
+					case fe._.dt_grid:	 fe._.cs.data[0][# fe._.cs.wi, fe._.cs.hi] = fe[$ fe._.cs.args[0]]; break;
+					case fe._.dt_map:	 fe._.cs.data[0][? fe._.cs.key] = fe[$ fe._.cs.args[0]]; break;
+					case fe._.dt_struct: fe._.cs.data[0][$ fe._.cs.key] = fe[$ fe._.cs.args[0]]; break;
+				}
+			},
+			
+			next: function() {
+				fe._.map();
+				fe._.cs.i += fe._.cs.step;	
+			},
+			
+			exit_loop: function() {
+				ds_stack_pop(fe._.stack);
+				fe._.cs = ds_stack_top(fe._.stack);
+				return false;
+			},
+			
+			prepare_range: function(args, data, datatype) {
+				
+				fe._.new_stack();
+				
+				var l = array_length(data);
+				if l == 1 {
+					fe._.cs.from = 0;
+					fe._.cs.to = data[0];
+					fe._.cs.step = 1;
+				}
+				else if l == 2 {
+					fe._.cs.from = data[0];
+					fe._.cs.to = data[1];
+					fe._.cs.step = 1;
+				}
+				else if l == 3 {
+					fe._.cs.from = data[0];
+					fe._.cs.to = data[1];
+					fe._.cs.step = abs(data[2]);
+				}
+				
+				fe._.cs.i = fe._.cs.from;
+				fe._.cs.args = args;
+				fe._.cs.datatype = datatype;
+			},
+			
+			return_num: function() {
+				if (fe._.cs.from < fe._.cs.to and fe._.cs.i < fe._.cs.to)
+				or (fe._.cs.from > fe._.cs.to and fe._.cs.i > fe._.cs.to) {
+					fe[$ fe._.cs.args[0]] = fe._.cs.i;
+					return true;
+				}
+				return fe._.exit_loop();
+			},
+			
+			next_num: function() {
+				fe._.cs.i += sign(fe._.cs.to - fe._.cs.from) * fe._.cs.step;
+			},
+			
 		},
-		
-		set: function(val) { 
-			switch(fed.cs.data_type) {
-				case 0: fed.cs.input[@ fed.cs.i] = val; break;
-				case 1: fed.cs.input[| fed.cs.i] = val; break;
-				case 2: fed.cs.input[? fed.cs.key] = val; break;
-				case 3: fed.cs.input[# fed.cs.xpos, fed.cs.ypos] = val; break;
-				case 4: fed.cs.input = string_delete(fed.cs.input, fed.cs.i+1, 1);
-						fed.cs.input = string_insert(string(val), fed.cs.input, fed.cs.i+1); break;
-				case 5: fed.cs.input[$ fed.cs.key] = val; break;
-			}
-			return val;
-		}
 	};
 	
+	#macro BREAK \
+		{ fe._.map(); break; }
+		
+	#macro CONTINUE \
+		continue;
+	
+	#macro feach \
+		for(var _feARGS_ = [
+		
 	#macro foreach \
-		ds_stack_push(fed.stacks, { name: "", iname: "", input: undefined, i: 0, startfrom: 0, step: 1, len: 0, xpos: 0, xlen: 0, ypos: 0, ylen: 0, key: "", keys: [], data_type: -1, from: 0, to: 0 }); \
-		ds_stack_top(fed.stacks).name =
+		for(var _feARGS_ = [
 	
 	#macro in \
-		ds_stack_top(fed.stacks).input =
-	
-	// ARRAY
+		], _feDATA_ = [
+		
 	#macro as_array \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.cs.len = array_length(fed.cs.input); \
-		if fed.cs.len != 0 and fed.cs.startfrom < fed.cs.len { \
-			fed.cs.data_type = 0; \
-			fed.break_input(fed.cs); \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[@ fed.cs.startfrom]); \
-			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.startfrom); \
-		} \
-		if fed.cs.len == 0 or fed.cs.startfrom >= fed.cs.len { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(fed.cs.i = fed.cs.startfrom; true; \
-			{ \
-				fed.cs.i += fed.cs.step; \
-				if fed.cs.i < fed.cs.len { \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[@ fed.cs.i]); \
-					if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.i); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
-	
-	// LIST
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_array); fe._.return_data(); fe._.next())
+		
 	#macro as_list \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.cs.len = ds_list_size(fed.cs.input); \
-		if fed.cs.len != 0 and fed.cs.startfrom < fed.cs.len { \
-			fed.cs.data_type = 1; \
-			fed.break_input(fed.cs); \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[| fed.cs.startfrom]); \
-			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.startfrom); \
-		} \
-		if fed.cs.len == 0 or fed.cs.startfrom >= fed.cs.len { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(fed.cs.i = fed.cs.startfrom; true; \
-			{ \
-				fed.cs.i += fed.cs.step; \
-				if fed.cs.i < fed.cs.len { \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[| fed.cs.i]); \
-					if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.i); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
-	
-	// MAP
-	#macro as_map \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.cs.key = ds_map_find_first(fed.cs.input); \
-		if fed.cs.key != undefined and fed.cs.startfrom < ds_map_size(fed.cs.input) { \
-			fed.cs.data_type = 2; \
-			fed.break_input(fed.cs); \
-			repeat(fed.cs.startfrom) { fed.cs.key = ds_map_find_next(fed.cs.input, fed.cs.key); } \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[? fed.cs.key]); \
-			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.key); \
-		} \
-		if fed.cs.key == undefined or fed.cs.startfrom >= ds_map_size(fed.cs.input) { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(; true; \
-			{ \
-				repeat(fed.cs.step) { fed.cs.key = ds_map_find_next(fed.cs.input, fed.cs.key); } \
-				if !is_undefined(fed.cs.key) { \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[? fed.cs.key]); \
-					if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.key); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
-	
-	// GRID
-	#macro as_grid \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.cs.xlen = ds_grid_width(fed.cs.input); \
-		fed.cs.ylen = ds_grid_height(fed.cs.input); \
-		fed.cs.len = fed.cs.xlen * fed.cs.ylen; \
-		if fed.cs.len != 0 and fed.cs.startfrom < fed.cs.len { \
-			fed.cs.data_type = 3; \
-			fed.break_input(fed.cs); \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[# fed.cs.startfrom, fed.cs.startfrom]); \
-			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, [fed.cs.startfrom, fed.cs.startfrom]); \
-		} \
-		if fed.cs.len == 0 or fed.cs.startfrom < fed.cs.len { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(; true; \
-			{ \
-				fed.cs.i += fed.cs.step; \
-				if fed.cs.i < fed.cs.len { \
-					fed.cs.ypos += fed.cs.step; \
-					if fed.cs.ypos > fed.cs.ylen-1 { \
-						fed.cs.ypos += fed.cs.step; \
-						fed.cs.ypos = 0; \
-						fed.cs.xpos++; \
-					} \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[# fed.cs.xpos, fed.cs.ypos]); \
-					if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, [fed.cs.xpos, fed.cs.ypos]); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
-	
-	// STRING
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_list); fe._.return_data(); fe._.next())
+		
 	#macro as_string \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.cs.len = string_length(fed.cs.input); \
-		if fed.cs.len != 0 and fed.cs.startfrom < fed.cs.len { \
-			fed.cs.data_type = 4; \
-			fed.break_input(fed.cs); \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, string_char_at(fed.cs.input, fed.cs.startfrom+1)); \
-			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.startfrom); \
-		} \
-		if fed.cs.len == 0 or fed.cs.startfrom >= fed.cs.len { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(fed.cs.i = fed.cs.startfrom; true; \
-			{ \
-				fed.cs.i += fed.cs.step; \
-				if fed.cs.i < fed.cs.len { \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, string_char_at(fed.cs.input, fed.cs.i+1)); \
-					if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.i); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_string); fe._.return_data(); fe._.next())
 	
-	// STRUCT
+	#macro as_grid \
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_grid); fe._.return_data(); fe._.next())
+	
+	#macro as_map \
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_map); fe._.return_data(); fe._.next())
+	
 	#macro as_struct \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.cs.keys = variable_struct_get_names(fed.cs.input); \
-		fed.cs.len = array_length(fed.cs.keys); \
-		if fed.cs.len != 0 and fed.cs.startfrom < fed.cs.len { \
-			fed.cs.data_type = 5; \
-			fed.break_input(fed.cs); \
-			fed.cs.key = fed.cs.keys[fed.cs.startfrom]; \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[$ fed.cs.key]); \
-			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.key); \
-		} \
-		if fed.cs.len == 0 or fed.cs.startfrom >= fed.cs.len { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(fed.cs.i = fed.cs.startfrom; true; \
-			{ \
-				fed.cs.i += fed.cs.step; \
-				if fed.cs.i < fed.cs.len { \
-					fed.cs.key = fed.cs.keys[fed.cs.i]; \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[$ fed.cs.key]); \
-					if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.key); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
+		], _fePREPARE_ = fe._.prepare_loop(_feARGS_, _feDATA_, fe._.dt_struct); fe._.return_data(); fe._.next())
 	
-	// NUMBER RANGE
 	#macro as_range \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.break_range_arr(fed.cs) \
-		if fed.cs.from != fed.cs.to { \
-			fed.cs.data_type = 6; \
-			fed.break_input(fed.cs); \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.from); \
-		} \
-		if fed.cs.from == fed.cs.to { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(fed.cs.i = fed.cs.from; true; \
-			{ \
-				fed.cs.i += sign(fed.cs.to - fed.cs.from) * fed.cs.step; \
-				if (fed.cs.from < fed.cs.to and fed.cs.i < fed.cs.to) \
-				or (fed.cs.from > fed.cs.to and fed.cs.i > fed.cs.to) { \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.i); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
+		], _fePREPARE_ = fe._.prepare_range(_feARGS_, _feDATA_, fe._.dt_range); fe._.return_num(); fe._.next_num())
 	
-	// INVERSE ARRAY
-	#macro as_inv_array \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.cs.len = array_length(fed.cs.input); \
-		if fed.cs.len != 0 and fed.cs.startfrom < fed.cs.len { \
-			fed.cs.data_type = 0; \
-			fed.break_input(fed.cs); \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[@ fed.cs.len-1 - fed.cs.startfrom]); \
-			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.len-1 - fed.cs.startfrom); \
-		} \
-		if fed.cs.len == 0 or fed.cs.startfrom >= fed.cs.len { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(fed.cs.i = fed.cs.len-1 - fed.cs.startfrom; true; \
-			{ \
-				fed.cs.i -= fed.cs.step; \
-				if fed.cs.i > -1 { \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[@ fed.cs.i]); \
-					if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.i); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
-	
-	// INVERSE LIST
-	#macro as_inv_list \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.cs.len = ds_list_size(fed.cs.input); \
-		if fed.cs.len != 0 and fed.cs.startfrom < fed.cs.len { \
-			fed.cs.data_type = 1; \
-			fed.break_input(fed.cs); \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[| fed.cs.len-1 - fed.cs.startfrom]); \
-			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.len-1 - fed.cs.startfrom); \
-		} \
-		if fed.cs.len == 0 or fed.cs.startfrom >= fed.cs.len { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(fed.cs.i = fed.cs.len-1 - fed.cs.startfrom; true; \
-			{ \
-				fed.cs.i -= fed.cs.step; \
-				if fed.cs.i > -1 { \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, fed.cs.input[| fed.cs.i]); \
-					if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.i); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
-	
-	// INVERSE STRING
-	#macro as_inv_string \
-		fed.cs = ds_stack_top(fed.stacks); \
-		fed.cs.len = string_length(fed.cs.input); \
-		if fed.cs.len != 0 and fed.cs.startfrom < fed.cs.len { \
-			fed.cs.data_type = 4; \
-			fed.break_input(fed.cs); \
-			if fed.cs.name != "" variable_instance_set(id, fed.cs.name, string_char_at(fed.cs.input, fed.cs.len-1 - fed.cs.startfrom+1)); \
-			if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.len-1 - fed.cs.startfrom); \
-		} \
-		if fed.cs.len == 0 or fed.cs.startfrom >= fed.cs.len { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); } \
-		else for(fed.cs.i = fed.cs.len-1 - fed.cs.startfrom; true; \
-			{ \
-				fed.cs.i -= fed.cs.step; \
-				if fed.cs.i > -1 { \
-					if fed.cs.name != "" variable_instance_set(id, fed.cs.name, string_char_at(fed.cs.input, fed.cs.i+1)); \
-					if fed.cs.iname != "" variable_instance_set(id, fed.cs.iname, fed.cs.i); \
-				} else { ds_stack_pop(fed.stacks); fed.cs = ds_stack_top(fed.stacks); break; } \
-			})
 }
