@@ -126,9 +126,8 @@ feach "v" in some_arr as_array
 	feach "v" in some_struct as_struct
 		feach "v" in some_map as_map
 			do_something();
-```
-or 
-```
+
+
 feach "v" in some_arr as_array {
 	do_something();
 	feach "v" in some_struct as_struct {
