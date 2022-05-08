@@ -6,6 +6,9 @@ This foreach was made using macros so you don't have to pass variables like argu
 
 Reserved keywords: `feach, foreach, in, as_array, as_inv_array as_list, as_inv_list, as_map, as_struct, as_grid, as_inv_grid, as_string, as_inv_string, as_range, BREAK, CONTINUE` + global variable `fe`.
 
+##### Updates?
+Currently prototyping a much faster design
+
 ### Changelog
 [v2.0.1] Going backwards
 + Inversed loops for number indexed data types: array, list, grid and string
