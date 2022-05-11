@@ -39,7 +39,7 @@ function foreach_init() {
 
 		self.data = data;
 		self.i = -1;
-		self.len = array_length(data);
+		self.len = ds_list_size(data);
 		self.step = 1;
 
 		if inv {
