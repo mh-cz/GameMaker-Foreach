@@ -25,7 +25,7 @@ You can use `break` and `continue`
 ####
 The keyword `Loop` contains the current loop data like the current index (`Loop.i`), the current key (`Loop.key`) or the map function (`Loop.map(x)`)
 ###
-Note: `Feach` is just shortened `Foreach` and you can choose the one you prefer
+Note: `Feach` is just shortened `Foreach` and you can use the one you prefer
 
 ## Examples
 Array - return value
