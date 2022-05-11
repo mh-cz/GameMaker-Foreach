@@ -73,7 +73,7 @@ some_values[| 3] = 4;
 var add = 10;
 
 Feach v inList some_values Run {
-	     if Loop.i == 1 Loop.map(v *= -1);
+	     if Loop.i == 1 Loop.map(-v);
 	else if Loop.i == 2 Loop.map(sqr(v));
 	else if Loop.i == 3 Loop.map(v + add);
 }
