@@ -142,7 +142,7 @@ Stackable like any other loop
 Feach v1 inArray some_arr Run
 	Feach v2 inStruct v1 Run
 		Feach v3 inRange -v2, v2 Run
-			do_something();
+			do_something(v3);
 
 ```
 One-liner possibilities
