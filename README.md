@@ -40,7 +40,7 @@ Feach v inArray arr Run
 > 3
 > 4
 ```
-Array - return value and index
+Array - return index and value
 ```
 var arr = ["a","b","c","d"];
 
