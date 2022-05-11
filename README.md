@@ -23,7 +23,7 @@ Call `foreach_init()` once when the game starts and you're good to go
 ####
 You can use `break` and `continue`
 ####
-The keyword `Loop` contains the current loop data like the current index (`Loop.i`) or the current key (`Loop.key`) and the map function (`Loop.map(x)`)
+The keyword `Loop` contains the current loop data like the current index (`Loop.i`), the current key (`Loop.key`) or the map function (`Loop.map(x)`)
 ###
 Note: `Feach` just a shortened `Foreach`
 
