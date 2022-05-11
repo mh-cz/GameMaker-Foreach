@@ -150,7 +150,7 @@ One-liner possibilities
 if !is_array(data) {
 	...
 }
-else Feach v inArray some_arr Run {  // running foreach right after else wasn't possible before
+else Feach v inArray some_arr Run {
 	...
 }
 ```
