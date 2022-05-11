@@ -1,58 +1,38 @@
-# GameMaker Foreach v2.0.1
+# GameMaker Foreach v2.0.2
 
 A stackable foreach loop for arrays, lists, maps, structs, grids, strings and number ranges.
 
 This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly. 
 
-Reserved keywords: `feach, foreach, in, as_array, as_inv_array as_list, as_inv_list, as_map, as_struct, as_grid, as_inv_grid, as_string, as_inv_string, as_range, BREAK, CONTINUE` + global variable `fe`.
-
-##### Updates?
-Currently prototyping a much faster design
+Reserved keywords: `Foreach, Feach, inAarray, inInvArray inList, inInvList, inMap, inStruct, inGrid, inInvGrid, inString, inInvString, inRange, Loop` + global variable `FEDATA`.
 
 ### Changelog
-[v2.0.1] Going backwards
-+ Inversed loops for number indexed data types: array, list, grid and string
-
-[v2.0.0] Redone from scratch
-+ Data is returned inside a global struct `fe` so it can be called in anonymous functions
-+ You can no longer only use variable names that don't exist yet
-+ You only type the return value name. Iterator/Key names are created automatically using `i_` and `k_` prefixes (`x_`, `y_` for grid)
-+ It's a true one-liner now so you can call it without surrounding it with brackets
-+ Map function is simpler to use
-+ `BREAK` and `CONTINUE` macros
-+ The code is not a fking mess anymore
+[v2.0.2] Speeed
++ Up to 3x faster than the previous version
++ Syntax update - the `value` is now an actual variable instead of being stored in a struct
 
 ### How to use it
 Call `foreach_init()` once when the game starts and you're good to go
 
 ### Syntax
-`feach <NAME>, <START_FROM>, <STEP> in <DATA> as_<DATA_TYPE>`
+`Feach <var> inData <data> Run`
 
-- NAME - string, required
-- START_FROM - real, optional (default 0)
-- STEP - real, optional (default 1)
-- DATA - any supported data
-- DATA_TYPE - type of the entered data
+- `var` - a variable to use (will overwrite it if already exists)
+- `data` - any supported datatype
 
-##### Number range syntax
-
-`feach <NAME> in <FROM>, <TO>, <STEP> as_range`
-- FROM - real, optional (default 0)
-- TO - real, required 
-- STEP - real, optional (default 1)
 ####
-- Use the capital `BREAK;` macro to exit the loop when mapping/changing values. This will force the map function to register the changed value immediately instead of the next iteration since there is no next iteration after calling `break`
-- The `CONTINUE;` macro is there just for consistency. You can use regular `continue` if you want
+You can use `break` and `continue`
+####
+The keyword `Loop` contains the current loop data like the current index (`Loop.i`) or the current key (`Loop.key`) and the map function (`Loop.map(x)`)
 ###
-###
-Just to avoid confusion.. The macro `feach` is the same as macro `foreach`. I just like using the shorter version
+Note: `Feach` just a shortened `Foreach`
 
 ## Examples
 Array - return value
 ```
 var arr = [1, 2, 3, 4];
 
-feach "v" in arr as_array
+Feach v inArray arr Run
 	show_debug_message(fe.v);
  
 > 1
@@ -64,8 +44,8 @@ Array - return value and index
 ```
 var arr = ["a","b","c","d"];
 
-feach "v" in arr as_array
-	show_debug_message(string(fe.i_v) + ", " + string(fe.v));  // prefix i_<name> returns the index
+Feach v inArray arr Run
+	show_debug_message(string(Loop.i) + ", " + string(v));
  
 > 0, a
 > 1, b
@@ -77,8 +57,8 @@ Array - simple map
 var arr = [1, 2, 3, 4];
 var multip = 10;
 
-feach "num" in arr as_array
-	fe.num *= multip;
+Feach num inArray arr Run
+	Loop.map(num * multip);
 
 The array now contains: [10, 20, 30, 40]
 ```
@@ -92,14 +72,15 @@ some_values[| 3] = 4;
 
 var add = 10;
 
-feach "v" in some_values as_list {
-	     if fe.i_v == 1 fe.v *= -1;
-	else if fe.i_v == 2 fe.v = sqr(fe.v);
-	else if fe.i_v == 3 fe.v += add;
+Feach v inList some_values Run {
+	     if Loop.i == 1 Loop.map(v *= -1);
+	else if Loop.i == 2 Loop.map(sqr(v));
+	else if Loop.i == 3 Loop.map(v + add);
 }
 
 // now return them
-feach "v" in some_values as_list show_debug_message(fe.v);
+Feach v inList some_values Run
+	show_debug_message(v);
 
 > 1
 > -2
@@ -110,83 +91,66 @@ Grid - store cell coordinate into each cell
 ```
 var grd = ds_grid_create(3,3);
 
-feach "v" in grd as_grid
-	fe.v = [fe.x_v, fe.y_v];  // prefixes x_<name>, y_<name> returns the x, y grid coords
+Feach v inGrid grd Run
+	Loop.map([Loop.xpos, Loop.ypos]);
 
 The grid now contains:
 [0,0] [1,0] [2,0]
 [0,1] [1,1] [2,1]
 [0,2] [1,2] [2,2]
 ```
-Struct - loop until undefined value is found, set it to 0 and return the key of the undefined value
+Struct
 ```
 var animals = {
 	dogs: 10,
 	cats: 4,
 	rats: 9,
-	cows: undefined,
+	cows: 7,
 	goats: 2,
 };
 
-var undef_keys = [];
-feach "animal_count" in animals as_struct {
-	if is_undefined(fe.animal_count) {
-		array_push(undef_keys, fe.k_animal_count);  // prefix k_<name> returns the key
-		fe.animal_count = 0;
-	}
+Feach anim_count inStruct animals Run {
+	if anim_count < 0 Loop.map(0);
+	if Loop.key == "cats" Loop.map(100);
 }
 
-> undef_key now contains ["cows"]
 ```
 Number ranges (returned values written in a single line cuz it's long)
 ```
-feach "v" in 5 as_range 
-	show_debug_message(fe.v);
+Feach v inRange 5 Run 
+	show_debug_message(v);
 	
 > 0, 1, 2, 3, 4
 
-feach "v" in 2, 5 as_range 
-	show_debug_message(fe.v);
+Feach v inRange 2, 5 Run 
+	show_debug_message(v);
 	
 > 2, 3, 4
 
-feach "v" in 2, -2 as_range 
-	show_debug_message(fe.v);
+Feach v inRange 2, -2 Run 
+	show_debug_message(v);
 	
 > 2, 1, 0, -1
 
-feach "v" in 2, -2, 0.5 as_range 
-	show_debug_message(fe.v);
+Feach v inRange 2, -2, 0.5 Run 
+	show_debug_message(v);
 	
 > 2, 1.5, 1, 0.5, 0, -0.5, -1, -1.5
 ```
-Stackable like regular for loop
+Stackable like any other loop
 ```
-feach "v1" in some_arr as_array
-	feach "v2" in some_struct as_struct
-		feach "v3" in some_map as_map
+Feach v1 inArray some_arr Run
+	Feach v2 inStruct v1 Run
+		Feach v3 inRange -v2, v2 Run
 			do_something();
 
-
-feach "v1" in some_arr as_array {
-	do_something();
-	feach "v2" in some_struct as_struct {
-		do_something_else();
-		feach "v3" in some_map as_map {
-			do_something_else_else();
-		}
-	}
-}
 ```
 One-liner possibilities
 ```
 if !is_array(data) {
-	do_something(data);
-	do_something_else(data);
+	...
 }
-else feach "v" in some_arr as_array {  // running foreach right after "else" wasn't possible before
-	do_something(fe.v);
-	do_something_else(fe.v);
+else Feach v inArray some_arr Run {  // running foreach right after else wasn't possible before
+	...
 }
 ```
-
