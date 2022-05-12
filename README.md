@@ -33,7 +33,7 @@ Array - return value
 var arr = [1, 2, 3, 4];
 
 Feach v inArray arr Run
-	show_debug_message(fe.v);
+	show_debug_message(v);
  
 > 1
 > 2
