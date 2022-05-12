@@ -147,10 +147,10 @@ Feach v1 inArray some_arr Run
 ```
 One-liner possibilities
 ```
-if !is_array(data) {
+if !is_array(some_data) {
 	...
 }
-else Feach v inArray some_arr Run {
+else Feach v inArray some_data Run {
 	...
 }
 ```
