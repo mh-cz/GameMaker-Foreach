@@ -17,8 +17,9 @@ Call `foreach_init()` once when the game starts and you're good to go
 ### Syntax
 `Feach <var> inData <data> Run`
 
-- `var` - a variable to use (will overwrite it if already exists)
-- `data` - any supported datatype
++ `<var>` - a variable to use (will overwrite it if already exists)
++ `inData` - datatype
++ `<data>` - data specified with inData 
 
 ####
 You can use `break` and `continue`
