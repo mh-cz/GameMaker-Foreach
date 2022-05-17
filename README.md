@@ -1,4 +1,4 @@
-# GameMaker Foreach v2.0.2
+# GameMaker Foreach v2.0.3
 
 A stackable foreach loop for arrays, lists, maps, structs, grids, strings and number ranges.
 
