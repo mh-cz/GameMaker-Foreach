@@ -1,10 +1,10 @@
 // v2.0.3
 
-gml_pragma("global", "foreach_init();");
-
 function foreach_init() {
 	global.FEDATA = [[], -1];
 }
+
+foreach_init();
 
 function _FeArray_(inv, data) constructor {	
 	self.data = data;
