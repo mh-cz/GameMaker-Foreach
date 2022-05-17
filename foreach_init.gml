@@ -1,10 +1,6 @@
 // v2.0.3
 
-function foreach_init() {
-	global.FEDATA = [[], -1];
-}
-
-foreach_init();
+global.FEDATA = [[], -1];
 
 function _FeArray_(inv, data) constructor {	
 	self.data = data;
