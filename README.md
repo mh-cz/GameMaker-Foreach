@@ -8,7 +8,7 @@ Reserved keywords: `Foreach, Feach, inAarray, inInvArray inList, inInvList, inMa
 
 ### Changelog
 [v2.0.3] Auto init
-+ Using gml_pragma to automatically call the init function when the game starts (if you have `foreach_init();` written somewhere, simply remove it)
++ Using gml_pragma to automatically call the init function when the game starts (if you have `foreach_init();` from the previous version written somewhere, simply remove it)
 + Also realized I accidentally placed loop functions inside the init function (but it worked so... eh)
 
 [v2.0.2] Speeed
