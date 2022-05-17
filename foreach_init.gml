@@ -2,6 +2,10 @@
 
 gml_pragma("global", "foreach_init();");
 
+function foreach_init() {
+	global.FEDATA = [[], -1];
+}
+
 function _FeArray_(inv, data) constructor {	
 	self.data = data;
 	self.i = -1;
@@ -233,10 +237,6 @@ function _FeString_(inv, data) constructor {
 		var l = array_length(global.FEDATA[0]);
 		if l != 0 Loop = global.FEDATA[0][l-1];
 	}
-}
-
-function foreach_init() {
-	global.FEDATA = [[], -1];
 }
 
 #macro Loop global.FEDATA[1]
