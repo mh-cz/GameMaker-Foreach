@@ -236,53 +236,53 @@ function _FeString_(inv, data) constructor {
 }
 
 function foreach_init() {
-
 	global.FEDATA = [[], -1];
-	#macro Loop global.FEDATA[1]
-
-	#macro Foreach \
-		for(var _DataLoadeD_ = false, _CanLooP_ = false; true; { \
-		if _DataLoadeD_ { _CanLooP_ = true; if !Loop.next() { Loop.yeet(); break; } var 
-
-	#macro Feach \
-		for(var _DataLoadeD_ = false, _CanLooP_ = false; true; { \
-		if _DataLoadeD_ { _CanLooP_ = true; if !Loop.next() { Loop.yeet(); break; } var 
-
-	#macro Run \
-		); array_push(global.FEDATA[0], Loop); } \
-		}) if _CanLooP_
-
-	#macro inArray \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeArray_(false, 
-
-	#macro inInvArray \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeArray_(true, 
-
-	#macro inList \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeList_(false, 
-
-	#macro inInvList \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeList_(true, 
-
-	#macro inMap \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeMap_(
-
-	#macro inStruct \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeStruct_(
-
-	#macro inGrid \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeGrid_(false, 
-
-	#macro inInvGrid \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeGrid_(true, 
-
-	#macro inRange \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeRange_( 
-
-	#macro inString \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeString_(false, 
-
-	#macro inInvString \
-		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeString_(true, 
-
 }
+
+#macro Loop global.FEDATA[1]
+
+#macro Foreach \
+	for(var _DataLoadeD_ = false, _CanLooP_ = false; true; { \
+	if _DataLoadeD_ { _CanLooP_ = true; if !Loop.next() { Loop.yeet(); break; } var 
+
+#macro Feach \
+	for(var _DataLoadeD_ = false, _CanLooP_ = false; true; { \
+	if _DataLoadeD_ { _CanLooP_ = true; if !Loop.next() { Loop.yeet(); break; } var 
+
+#macro Run \
+	); array_push(global.FEDATA[0], Loop); } \
+	}) if _CanLooP_
+
+#macro inArray \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeArray_(false, 
+
+#macro inInvArray \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeArray_(true, 
+
+#macro inList \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeList_(false, 
+
+#macro inInvList \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeList_(true, 
+
+#macro inMap \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeMap_(
+
+#macro inStruct \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeStruct_(
+
+#macro inGrid \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeGrid_(false, 
+
+#macro inInvGrid \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeGrid_(true, 
+
+#macro inRange \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeRange_( 
+
+#macro inString \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeString_(false, 
+
+#macro inInvString \
+	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeString_(true, 
+
