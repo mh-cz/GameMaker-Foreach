@@ -1,241 +1,244 @@
-// v2.0.2
+// v2.0.3
+
+gml_pragma("global", "foreach_init();");
+
+function _FeArray_(inv, data) constructor {	
+	self.data = data;
+	self.i = -1;
+	self.len = array_length(data);
+	self.step = 1;
+
+	if inv {
+		i = len;
+		step = -step;
+	}
+
+	static map = function(v) {
+		data[@ i] = v;
+	}
+
+	static next = function() {
+		i += step;
+		return i < len and i > -1;
+	}
+
+	static get = function() {
+		return data[i];
+	}
+
+	static yeet = function() {
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 Loop = global.FEDATA[0][l-1];
+	}
+}
+
+function _FeList_(inv, data) constructor {
+
+	self.data = data;
+	self.i = -1;
+	self.len = ds_list_size(data);
+	self.step = 1;
+
+	if inv {
+		i = len;
+		step = -step;
+	}
+
+	static map = function(v) {
+		data[| i] = v;
+	}
+
+	static next = function() {
+		i += step;
+		return i < len and i > -1;
+	}
+
+	static get = function() {
+		return data[| i];
+	}
+
+	static yeet = function() {
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 Loop = global.FEDATA[0][l-1];
+	}
+}
+
+function _FeMap_(data) constructor {
+
+	self.data = data;
+	self.i = -1;
+	self.key = "";
+	self.keys = ds_map_keys_to_array(data);
+	self.len = array_length(keys);
+	self.step = 1;
+
+	static map = function(v) {
+		data[? key] = v;
+	}
+
+	static next = function() {
+		i += step;
+		return i < len;
+	}
+
+	static get = function() {
+		key = keys[i];
+		return data[? key];
+	}
+
+	static yeet = function() {
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 Loop = global.FEDATA[0][l-1];
+	}
+}
+
+function _FeStruct_(data) constructor {
+
+	self.data = data;
+	self.i = -1;
+	self.key = "";
+	self.keys = variable_struct_get_names(data);
+	self.len = array_length(keys);
+	self.step = 1;
+
+	static map = function(v) {
+		data[$ key] = v;
+	}
+
+	static next = function() {
+		i += step;
+		return i < len;
+	}
+
+	static get = function() {
+		key = keys[i];
+		return data[$ key];
+	}
+
+	static yeet = function() {
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 Loop = global.FEDATA[0][l-1];
+	}
+}
+
+function _FeGrid_(inv, data) constructor {
+
+	self.data = data;
+	self.xpos = 0;
+	self.ypos = 0;
+	self.w = ds_grid_width(data);
+	self.h = ds_grid_height(data);
+	self.i = -1;
+	self.len = w * h;
+	self.step = 1;
+
+	if inv {
+		i = len;
+		step = -step;
+	}
+
+	static map = function(v) {
+		data[# xpos, ypos] = v;
+	}
+
+	static next = function() {
+		i += step;
+		return i < len and i > -1;
+	}
+
+	static get = function() {
+		xpos = i mod w;
+		ypos = i div h;
+		return data[# xpos, ypos];
+	}
+
+	static yeet = function() {
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 Loop = global.FEDATA[0][l-1];
+	}
+}
+
+function _FeRange_() constructor {
+
+	self.from = 0;
+	self.to = 1;
+	self.step = 1;
+	self.i = 0;
+
+	switch(argument_count) {
+		case 1:
+			to = argument0;
+			break;
+		case 2:
+			from = argument0 - step;
+			to = argument1;
+			i = from;
+			break;
+		case 3:
+			step = abs(argument2);
+			from = argument0 - step;
+			to = argument1;
+			i = from;
+			break;
+	}
+
+	static map = function(v) {
+		data[# xpos, ypos] = v;
+	}
+
+	static next = function() {
+		i += step;
+		return (from < to and i < to) or (from > to and i > to);
+	}
+
+	static get = function() {
+		return i;
+	}
+
+	static yeet = function() {
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 Loop = global.FEDATA[0][l-1];
+	}
+}
+
+function _FeString_(inv, data) constructor {
+
+	self.data = data;
+	self.i = -1;
+	self.len = string_length(data);
+	self.step = 1;
+
+	if inv {
+		i = len;
+		step = -step;
+	}
+
+	static next = function() {
+		i += step;
+		return i < len and i > -1;
+	}
+
+	static get = function() {
+		return string_char_at(data, i+1);
+	}
+
+	static yeet = function() {
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 Loop = global.FEDATA[0][l-1];
+	}
+}
+
 function foreach_init() {
 
 	global.FEDATA = [[], -1];
 	#macro Loop global.FEDATA[1]
-
-	function _FeArray_(inv, data) constructor {	
-		self.data = data;
-		self.i = -1;
-		self.len = array_length(data);
-		self.step = 1;
-
-		if inv {
-			i = len;
-			step = -step;
-		}
-
-		static map = function(v) {
-			data[@ i] = v;
-		}
-
-		static next = function() {
-			i += step;
-			return i < len and i > -1;
-		}
-
-		static get = function() {
-			return data[i];
-		}
-
-		static yeet = function() {
-			array_pop(global.FEDATA[0]);
-			var l = array_length(global.FEDATA[0]);
-			if l != 0 Loop = global.FEDATA[0][l-1];
-		}
-	}
-
-	function _FeList_(inv, data) constructor {
-
-		self.data = data;
-		self.i = -1;
-		self.len = ds_list_size(data);
-		self.step = 1;
-
-		if inv {
-			i = len;
-			step = -step;
-		}
-
-		static map = function(v) {
-			data[| i] = v;
-		}
-
-		static next = function() {
-			i += step;
-			return i < len and i > -1;
-		}
-
-		static get = function() {
-			return data[| i];
-		}
-
-		static yeet = function() {
-			array_pop(global.FEDATA[0]);
-			var l = array_length(global.FEDATA[0]);
-			if l != 0 Loop = global.FEDATA[0][l-1];
-		}
-	}
-
-	function _FeMap_(data) constructor {
-
-		self.data = data;
-		self.i = -1;
-		self.key = "";
-		self.keys = ds_map_keys_to_array(data);
-		self.len = array_length(keys);
-		self.step = 1;
-
-		static map = function(v) {
-			data[? key] = v;
-		}
-
-		static next = function() {
-			i += step;
-			return i < len;
-		}
-
-		static get = function() {
-			key = keys[i];
-			return data[? key];
-		}
-
-		static yeet = function() {
-			array_pop(global.FEDATA[0]);
-			var l = array_length(global.FEDATA[0]);
-			if l != 0 Loop = global.FEDATA[0][l-1];
-		}
-	}
-
-	function _FeStruct_(data) constructor {
-
-		self.data = data;
-		self.i = -1;
-		self.key = "";
-		self.keys = variable_struct_get_names(data);
-		self.len = array_length(keys);
-		self.step = 1;
-
-		static map = function(v) {
-			data[$ key] = v;
-		}
-
-		static next = function() {
-			i += step;
-			return i < len;
-		}
-
-		static get = function() {
-			key = keys[i];
-			return data[$ key];
-		}
-
-		static yeet = function() {
-			array_pop(global.FEDATA[0]);
-			var l = array_length(global.FEDATA[0]);
-			if l != 0 Loop = global.FEDATA[0][l-1];
-		}
-	}
-
-	function _FeGrid_(inv, data) constructor {
-
-		self.data = data;
-		self.xpos = 0;
-		self.ypos = 0;
-		self.w = ds_grid_width(data);
-		self.h = ds_grid_height(data);
-		self.i = -1;
-		self.len = w * h;
-		self.step = 1;
-
-		if inv {
-			i = len;
-			step = -step;
-		}
-
-		static map = function(v) {
-			data[# xpos, ypos] = v;
-		}
-
-		static next = function() {
-			i += step;
-			return i < len and i > -1;
-		}
-
-		static get = function() {
-			xpos = i mod w;
-			ypos = i div h;
-			return data[# xpos, ypos];
-		}
-
-		static yeet = function() {
-			array_pop(global.FEDATA[0]);
-			var l = array_length(global.FEDATA[0]);
-			if l != 0 Loop = global.FEDATA[0][l-1];
-		}
-	}
-
-	function _FeRange_() constructor {
-
-		self.from = 0;
-		self.to = 1;
-		self.step = 1;
-		self.i = 0;
-
-		switch(argument_count) {
-			case 1:
-				to = argument0;
-				break;
-			case 2:
-				from = argument0 - step;
-				to = argument1;
-				i = from;
-				break;
-			case 3:
-				step = abs(argument2);
-				from = argument0 - step;
-				to = argument1;
-				i = from;
-				break;
-		}
-
-		static map = function(v) {
-			data[# xpos, ypos] = v;
-		}
-
-		static next = function() {
-			i += step;
-			return (from < to and i < to) or (from > to and i > to);
-		}
-
-		static get = function() {
-			return i;
-		}
-
-		static yeet = function() {
-			array_pop(global.FEDATA[0]);
-			var l = array_length(global.FEDATA[0]);
-			if l != 0 Loop = global.FEDATA[0][l-1];
-		}
-	}
-
-	function _FeString_(inv, data) constructor {
-
-		self.data = data;
-		self.i = -1;
-		self.len = string_length(data);
-		self.step = 1;
-
-		if inv {
-			i = len;
-			step = -step;
-		}
-
-		static next = function() {
-			i += step;
-			return i < len and i > -1;
-		}
-
-		static get = function() {
-			return string_char_at(data, i+1);
-		}
-
-		static yeet = function() {
-			array_pop(global.FEDATA[0]);
-			var l = array_length(global.FEDATA[0]);
-			if l != 0 Loop = global.FEDATA[0][l-1];
-		}
-	}
 
 	#macro Foreach \
 		for(var _DataLoadeD_ = false, _CanLooP_ = false; true; { \
@@ -283,4 +286,3 @@ function foreach_init() {
 		= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeString_(true, 
 
 }
-
