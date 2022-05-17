@@ -14,9 +14,6 @@ Reserved keywords: `Foreach, Feach, inAarray, inInvArray inList, inInvList, inMa
 + Up to 3x faster than the previous version
 + Syntax update - the returned value is now an actual variable instead of being stored in a global struct
 
-### How to use it
-Call `foreach_init()` once when the game starts and you're good to go
-
 ### Syntax
 `Feach <var> inData <data> Run`
 
