@@ -7,6 +7,9 @@ This foreach was made using macros so you don't have to pass variables like argu
 Reserved keywords: `Foreach, Feach, inAarray, inInvArray inList, inInvList, inMap, inStruct, inGrid, inInvGrid, inString, inInvString, inRange, Loop` + global variable `FEDATA`.
 
 ### Changelog
+[v2.0.3] pragma
++ Using gml_pragma to automatically call the init function when the game starts (if you have `foreach_init();` written somewhere, simply remove it)
+
 [v2.0.2] Speeed
 + Up to 3x faster than the previous version
 + Syntax update - the returned value is now an actual variable instead of being stored in a global struct
