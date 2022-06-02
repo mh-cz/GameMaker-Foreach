@@ -122,22 +122,22 @@ Number ranges (returned values written in a single line cuz it's long)
 Feach v inRange 5 Run 
 	show_debug_message(v);
 	
-> 0, 1, 2, 3, 4
+> 0, 1, 2, 3, 4, 5
 
 Feach v inRange 2, 5 Run 
 	show_debug_message(v);
 	
-> 2, 3, 4
+> 2, 3, 4, 5
 
 Feach v inRange 2, -2 Run 
 	show_debug_message(v);
 	
-> 2, 1, 0, -1
+> 2, 1, 0, -1, -2
 
 Feach v inRange 2, -2, 0.5 Run 
 	show_debug_message(v);
 	
-> 2, 1.5, 1, 0.5, 0, -0.5, -1, -1.5
+> 2, 1.5, 1, 0.5, 0, -0.5, -1, -1.5, -2
 ```
 Stackable like any other loop
 ```
