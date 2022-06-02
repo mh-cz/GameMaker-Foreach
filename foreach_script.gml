@@ -193,7 +193,7 @@ function _FeRange_() constructor {
 
 	static next = function() {
 		i += step;
-		return (from < to and i < to) or (from > to and i > to);
+		return (from < to and i <= to) or (from > to and i >= to);
 	}
 
 	static get = function() {
