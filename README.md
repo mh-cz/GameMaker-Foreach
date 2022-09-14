@@ -1,4 +1,4 @@
-# GameMaker Foreach v2.0.31
+# GameMaker Foreach v2.0.4
 
 A foreach loop for arrays, lists, maps, structs, grids, strings and number ranges.
 
@@ -7,7 +7,7 @@ This foreach was made using macros so you don't have to pass variables like argu
 Reserved keywords: `Foreach, Feach, inAarray, inInvArray inList, inInvList, inMap, inStruct, inGrid, inInvGrid, inString, inInvString, inRange, Loop` + global variable `FEDATA`.
 
 ### Changelog
-[v2.0.31] An ex-silent update
+[v2.0.4] An ex-silent update
 + Number ranges now go from `X` to `Y` instead of `X` to `Y - step`
 
 [v2.0.3] Auto init
