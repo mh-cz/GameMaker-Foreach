@@ -7,6 +7,9 @@ This foreach was made using macros so you don't have to pass variables like argu
 Reserved keywords: `Foreach, Feach, inAarray, inInvArray inList, inInvList, inMap, inStruct, inGrid, inInvGrid, inString, inInvString, inRange, Loop` + global variable `FEDATA`.
 
 ### Changelog
+[v2.0.31] An ex-silent update
++ Number ranges now go from `X` to `Y` instead of `X` to `Y - step`
+
 [v2.0.3] Auto init
 + No need for manual initialization anymore
 + Also realized I accidentally placed the loop stuff inside the init function (but it worked so... eh)
