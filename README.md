@@ -11,7 +11,7 @@ The syntax is much simpler again thanks to [Gamer-XP](https://github.com/Gamer-X
 ### Syntax
 `foreach <var> in <data> exec`
 
-+ `<var>` - variable to use (will overwrite it if already exists)
++ `<var>` - variable
 + `<data>` - any supported data  
 
 The only datatypes that require exact specifications are DS types
