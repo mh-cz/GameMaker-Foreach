@@ -20,14 +20,16 @@ foreach v in <some_ds_map> as_map exec
 foreach v in <some_ds_list> as_map exec
 foreach v in <some_ds_grid> as_grid exec
 ```
-
-You can use `break` and `continue`  
+  
 ####
 The variable `fe` contains these variables:  
 - index `fe.i` (array, list, number range, string)
 - key `fe.key` (map, struct)
 - position `fe.xpos`, `fe.ypos` (grid)
 - write function `fe.set(val)` (anything but string and number range)
+  
+####
+You can use `break` and `continue`  
 
 ## Examples
 Array - return value
