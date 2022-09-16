@@ -1,43 +1,40 @@
-# GameMaker Foreach v2.0.4
+# GameMaker Foreach v2.0.5
 
-A foreach loop for arrays, lists, maps, structs, grids, strings and number ranges.
+A foreach loop for arrays, lists, maps, structs, grids, strings and number ranges.  
+This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly.  
+Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`, `as_map`, `fe` + global variable `FEDATA`.
 
-This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly. 
-
-Reserved keywords: `Foreach, Feach, inAarray, inInvArray inList, inInvList, inMap, inStruct, inGrid, inInvGrid, inString, inInvString, inRange, Loop` + global variable `FEDATA`.
-
-### Changelog
-[v2.0.4] An ex-silent update
-+ Number ranges now go from `X` to `Y` instead of `X` to `Y - step`
-
-[v2.0.3] Auto init
-+ No need for manual initialization anymore
-+ Also realized I accidentally placed the loop stuff inside the init function (but it worked so... eh)
-
-[v2.0.2] Speeed
-+ Up to 3x faster than the previous version
-+ Syntax update - the returned value is now an actual variable instead of being stored in a global struct
+### Changes
+[v2.0.5] Syntax update  
+The syntax is much simpler again thanks to [Gamer-XP](https://github.com/Gamer-XP)
 
 ### Syntax
-`Feach <var> inData <data> Run`
+`foreach <var> in <data> exec`
 
-+ `<var>` - a variable to use (will overwrite it if already exists)
-+ `inData` - datatype
-+ `<data>` - data specified with inData 
++ `<var>` - variable to use (will overwrite it if already exists)
++ `<data>` - any supported data  
 
+The only datatypes that require exact specifications are DS types
+```
+foreach v in <some_ds_map> as_map exec
+foreach v in <some_ds_list> as_map exec
+foreach v in <some_ds_grid> as_grid exec
+```
+
+You can use `break` and `continue`  
 ####
-You can use `break` and `continue`
-####
-The keyword `Loop` contains the current loop data like the current index (`Loop.i`), the current key (`Loop.key`) or the map function (`Loop.map(x)`)
-###
-- Note: The keyword `Feach` is just shortened keyword `Foreach` and you can use the one you prefer
+The variable `fe` contains these variables:  
+- index `fe.i` (array, list, number range, string)
+- key `fe.key` (map, struct)
+- position `fe.xpos`, `fe.ypos` (grid)
+- write function `fe.set(val)` (anything but string and number range)
 
 ## Examples
 Array - return value
 ```
 var arr = [1, 2, 3, 4];
 
-Feach v inArray arr Run
+foreach v in arr exec
 	show_debug_message(v);
  
 > 1
@@ -49,7 +46,7 @@ Array - return index and value
 ```
 var arr = ["a","b","c","d"];
 
-Feach v inArray arr Run
+foreach v in arr exec
 	show_debug_message(string(Loop.i) + ", " + string(v));
  
 > 0, a
@@ -57,34 +54,34 @@ Feach v inArray arr Run
 > 2, c
 > 3, d
 ```
-Array - simple map
+Array - simple write
 ```
 var arr = [1, 2, 3, 4];
 var multip = 10;
 
-Feach num inArray arr Run
-	Loop.map(num * multip);
+foreach num in arr exec
+	fe.set(num * multip);
 
 The array now contains: [10, 20, 30, 40]
 ```
 List - change some values inside
 ```
-var some_values = ds_list_create();
-some_values[| 0] = 1; 
-some_values[| 1] = 2;
-some_values[| 2] = 3; 
-some_values[| 3] = 4;
+var lst = ds_list_create();
+lst[| 0] = 1; 
+lst[| 1] = 2;
+lst[| 2] = 3; 
+lst[| 3] = 4;
 
 var add = 10;
 
-Feach v inList some_values Run {
-	     if Loop.i == 1 Loop.map(-v);
-	else if Loop.i == 2 Loop.map(sqr(v));
-	else if Loop.i == 3 Loop.map(v + add);
+foreach v in lst as_list exec {
+	     if fe.i == 1 fe.set(-v);
+	else if fe.i == 2 fe.set(sqr(v));
+	else if fe.i == 3 fe.set(v + add);
 }
 
 // now return them
-Feach v inList some_values Run
+foreach v in lst as_list exec
 	show_debug_message(v);
 
 > 1
@@ -96,8 +93,8 @@ Grid - store cell coordinate into each cell
 ```
 var grd = ds_grid_create(3,3);
 
-Feach v inGrid grd Run
-	Loop.map([Loop.xpos, Loop.ypos]);
+foreach v in grd as_grid exec
+	fe.set([fe.xpos, fe.ypos]);
 
 The grid now contains:
 [0,0] [1,0] [2,0]
@@ -114,48 +111,48 @@ var animals = {
 	goats: 2,
 };
 
-Feach anim_count inStruct animals Run {
-	if anim_count < 0 Loop.map(0);
-	if Loop.key == "cats" Loop.map(100);
+foreach anim_count in animals exec {
+	if anim_count < 0 fe.set(0);
+	if fe.key == "cats" fe.set(100);
 }
 
 ```
-Number ranges (returned values written in a single line cuz it's long)
+Number ranges
 ```
-Feach v inRange 5 Run 
+foreach v in 5 exec 
 	show_debug_message(v);
 	
 > 0, 1, 2, 3, 4, 5
 
-Feach v inRange 2, 5 Run 
+foreach v in 2, 5 exec 
 	show_debug_message(v);
 	
 > 2, 3, 4, 5
 
-Feach v inRange 2, -2 Run 
+foreach v in 2, -2 exec 
 	show_debug_message(v);
 	
 > 2, 1, 0, -1, -2
 
-Feach v inRange 2, -2, 0.5 Run 
+foreach v in 2, -2, 0.5 exec 
 	show_debug_message(v);
 	
 > 2, 1.5, 1, 0.5, 0, -0.5, -1, -1.5, -2
 ```
 Stackable like any other loop
 ```
-Feach v1 inArray some_arr Run
-	Feach v2 inStruct v1 Run
-		Feach v3 inRange -v2, v2 Run
+foreach v1 in some_arr exec
+	foreach v2 in v1 exec
+		foreach v3 in -v2, v2 exec
 			do_something(v3);
 
 ```
-One-liner possibilities
+One-liner
 ```
 if !is_array(some_data) {
 	...
 }
-else Feach v inArray some_data Run {
+else foreach v in some_data exec {
 	...
 }
 ```
