@@ -2,7 +2,7 @@
 
 A foreach loop for arrays, lists, maps, structs, grids, strings and number ranges.  
 This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly.  
-Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`, `as_map`, `fe` + global variable `FEDATA`.
+Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`, `as_map`, `fe` + global variable `FEDATA`
 
 ### Changes
 [v2.0.5] Syntax update  
