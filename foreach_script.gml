@@ -1,19 +1,60 @@
-// v2.0.4
+// v2.0.5
 
-global.FEDATA = [[], -1];
+global.FEDATA = { stack: [], current: undefined };
 
-function _FeArray_(inv, data) constructor {	
+#macro fe global.FEDATA.current
+
+#macro foreach \
+	for(var _DataLoadeD_ = false, _CanLooP_ = false; true; { \
+	if _DataLoadeD_ { _CanLooP_ = true; if !fe.next() { fe.done(); break; } var 
+
+#macro in \
+	= fe.get(); } else { _DataLoadeD_ = true; fe = _FeDetectType_(false, 
+
+#macro in_reverse \
+	= fe.get(); } else { _DataLoadeD_ = true; fe = _FeDetectType_(true, 
+
+#macro exec \
+	); array_push(global.FEDATA.stack, fe); }}) if _CanLooP_
+
+#macro as_list ,[ds_type_list]
+#macro as_map ,[ds_type_map]
+#macro as_grid ,[ds_type_grid]
+
+function _FeDetectType_(reversed, data) {
+	
+	if is_array(data) return new _FeArray_(reversed, data);
+	else if is_string(data) return new _FeString_(reversed, data);
+	else if is_struct(data) return new _FeStruct_(data);
+	else if argument_count == 3 and is_array(argument[2]) {
+		switch(argument[2][0]) {
+			case ds_type_list: return new _FeList_(reversed, data);
+			case ds_type_map:  return new _FeMap_(data);
+			case ds_type_grid: return new _FeGrid_(reversed, data);
+			default: throw "Unsupported ds type: " + string(argument[2][0]);
+		}
+	}
+	else if is_numeric(data) {
+		if argument_count <= 2 return new _FeRange_(data);
+		else if argument_count == 3 return new _FeRange_(data, argument[2])
+		else return new _FeRange_(data, argument[2], argument[3]);
+	}
+	else throw "Unsupported type: " + string(data);
+}
+
+function _FeArray_(reversed, data) constructor {
+
 	self.data = data;
 	self.i = -1;
 	self.len = array_length(data);
 	self.step = 1;
-
-	if inv {
+		
+	if reversed {
 		i = len;
 		step = -step;
 	}
 
-	static map = function(v) {
+	static set = function(v) {
 		data[@ i] = v;
 	}
 
@@ -26,26 +67,26 @@ function _FeArray_(inv, data) constructor {
 		return data[i];
 	}
 
-	static yeet = function() {
-		array_pop(global.FEDATA[0]);
-		var l = array_length(global.FEDATA[0]);
-		if l != 0 Loop = global.FEDATA[0][l-1];
+	static done = function() {
+		array_pop(global.FEDATA.stack);
+		var l = array_length(global.FEDATA.stack);
+		if l != 0 fe = global.FEDATA.stack[l-1];
 	}
 }
 
-function _FeList_(inv, data) constructor {
+function _FeList_(reversed, data) constructor {
 
 	self.data = data;
 	self.i = -1;
 	self.len = ds_list_size(data);
 	self.step = 1;
 
-	if inv {
+	if reversed {
 		i = len;
 		step = -step;
 	}
 
-	static map = function(v) {
+	static set = function(v) {
 		data[| i] = v;
 	}
 
@@ -58,10 +99,10 @@ function _FeList_(inv, data) constructor {
 		return data[| i];
 	}
 
-	static yeet = function() {
-		array_pop(global.FEDATA[0]);
-		var l = array_length(global.FEDATA[0]);
-		if l != 0 Loop = global.FEDATA[0][l-1];
+	static done = function() {
+		array_pop(global.FEDATA.stack);
+		var l = array_length(global.FEDATA.stack);
+		if l != 0 fe = global.FEDATA.stack[l-1];
 	}
 }
 
@@ -74,7 +115,7 @@ function _FeMap_(data) constructor {
 	self.len = array_length(keys);
 	self.step = 1;
 
-	static map = function(v) {
+	static set = function(v) {
 		data[? key] = v;
 	}
 
@@ -88,10 +129,10 @@ function _FeMap_(data) constructor {
 		return data[? key];
 	}
 
-	static yeet = function() {
-		array_pop(global.FEDATA[0]);
-		var l = array_length(global.FEDATA[0]);
-		if l != 0 Loop = global.FEDATA[0][l-1];
+	static done = function() {
+		array_pop(global.FEDATA.stack);
+		var l = array_length(global.FEDATA.stack);
+		if l != 0 fe = global.FEDATA.stack[l-1];
 	}
 }
 
@@ -104,7 +145,7 @@ function _FeStruct_(data) constructor {
 	self.len = array_length(keys);
 	self.step = 1;
 
-	static map = function(v) {
+	static set = function(v) {
 		data[$ key] = v;
 	}
 
@@ -118,14 +159,14 @@ function _FeStruct_(data) constructor {
 		return data[$ key];
 	}
 
-	static yeet = function() {
-		array_pop(global.FEDATA[0]);
-		var l = array_length(global.FEDATA[0]);
-		if l != 0 Loop = global.FEDATA[0][l-1];
+	static done = function() {
+		array_pop(global.FEDATA.stack);
+		var l = array_length(global.FEDATA.stack);
+		if l != 0 fe = global.FEDATA.stack[l-1];
 	}
 }
 
-function _FeGrid_(inv, data) constructor {
+function _FeGrid_(reversed, data) constructor {
 
 	self.data = data;
 	self.xpos = 0;
@@ -136,12 +177,12 @@ function _FeGrid_(inv, data) constructor {
 	self.len = w * h;
 	self.step = 1;
 
-	if inv {
+	if reversed {
 		i = len;
 		step = -step;
 	}
 
-	static map = function(v) {
+	static set = function(v) {
 		data[# xpos, ypos] = v;
 	}
 
@@ -156,39 +197,36 @@ function _FeGrid_(inv, data) constructor {
 		return data[# xpos, ypos];
 	}
 
-	static yeet = function() {
-		array_pop(global.FEDATA[0]);
-		var l = array_length(global.FEDATA[0]);
-		if l != 0 Loop = global.FEDATA[0][l-1];
+	static done = function() {
+		array_pop(global.FEDATA.stack);
+		var l = array_length(global.FEDATA.stack);
+		if l != 0 fe = global.FEDATA.stack[l-1];
 	}
 }
 
 function _FeRange_() constructor {
 
-	self.from = 0;
+	self.from = -1;
 	self.to = 1;
 	self.step = 1;
 	self.i = 0;
 
 	switch(argument_count) {
 		case 1:
-			to = argument0;
+			to = argument[0];
+			i = from;
 			break;
 		case 2:
-			from = argument0 - step;
-			to = argument1;
+			from = argument[0] - step;
+			to = argument[1];
 			i = from;
 			break;
 		case 3:
-			step = abs(argument2);
-			from = argument0 - step;
-			to = argument1;
+			step = abs(argument[2]);
+			from = argument[0] - step;
+			to = argument[1];
 			i = from;
 			break;
-	}
-
-	static map = function(v) {
-		data[# xpos, ypos] = v;
 	}
 
 	static next = function() {
@@ -200,21 +238,21 @@ function _FeRange_() constructor {
 		return i;
 	}
 
-	static yeet = function() {
-		array_pop(global.FEDATA[0]);
-		var l = array_length(global.FEDATA[0]);
-		if l != 0 Loop = global.FEDATA[0][l-1];
+	static done = function() {
+		array_pop(global.FEDATA.stack);
+		var l = array_length(global.FEDATA.stack);
+		if l != 0 fe = global.FEDATA.stack[l-1];
 	}
 }
 
-function _FeString_(inv, data) constructor {
+function _FeString_(reversed, data) constructor {
 
 	self.data = data;
 	self.i = -1;
 	self.len = string_length(data);
 	self.step = 1;
 
-	if inv {
+	if reversed {
 		i = len;
 		step = -step;
 	}
@@ -228,57 +266,10 @@ function _FeString_(inv, data) constructor {
 		return string_char_at(data, i+1);
 	}
 
-	static yeet = function() {
-		array_pop(global.FEDATA[0]);
-		var l = array_length(global.FEDATA[0]);
-		if l != 0 Loop = global.FEDATA[0][l-1];
+	static done = function() {
+		array_pop(global.FEDATA.stack);
+		var l = array_length(global.FEDATA.stack);
+		if l != 0 fe = global.FEDATA.stack[l-1];
 	}
 }
-
-#macro Loop global.FEDATA[1]
-
-#macro Foreach \
-	for(var _DataLoadeD_ = false, _CanLooP_ = false; true; { \
-	if _DataLoadeD_ { _CanLooP_ = true; if !Loop.next() { Loop.yeet(); break; } var 
-
-#macro Feach \
-	for(var _DataLoadeD_ = false, _CanLooP_ = false; true; { \
-	if _DataLoadeD_ { _CanLooP_ = true; if !Loop.next() { Loop.yeet(); break; } var 
-
-#macro Run \
-	); array_push(global.FEDATA[0], Loop); } \
-	}) if _CanLooP_
-
-#macro inArray \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeArray_(false, 
-
-#macro inInvArray \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeArray_(true, 
-
-#macro inList \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeList_(false, 
-
-#macro inInvList \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeList_(true, 
-
-#macro inMap \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeMap_(
-
-#macro inStruct \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeStruct_(
-
-#macro inGrid \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeGrid_(false, 
-
-#macro inInvGrid \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeGrid_(true, 
-
-#macro inRange \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeRange_( 
-
-#macro inString \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeString_(false, 
-
-#macro inInvString \
-	= Loop.get(); } else { _DataLoadeD_ = true; Loop = new _FeString_(true, 
 
