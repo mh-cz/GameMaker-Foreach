@@ -47,7 +47,7 @@ Array - return index and value
 var arr = ["a","b","c","d"];
 
 foreach v in arr exec
-	show_debug_message(string(Loop.i) + ", " + string(v));
+	show_debug_message(string(fe.i) + ", " + string(v));
  
 > 0, a
 > 1, b
