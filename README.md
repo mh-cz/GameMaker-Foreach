@@ -17,7 +17,7 @@ The syntax is much simpler again thanks to [Gamer-XP](https://github.com/Gamer-X
 The only datatypes that require exact specifications are DS types
 ```
 foreach v in <some_ds_map> as_map exec
-foreach v in <some_ds_list> as_map exec
+foreach v in <some_ds_list> as_list exec
 foreach v in <some_ds_grid> as_grid exec
 ```
   
