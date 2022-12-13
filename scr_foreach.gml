@@ -1,21 +1,21 @@
-// v2.0.5
+// v2.0.6
 
-global.FEDATA = { stack: [], current: undefined };
+global.FEDATA = [[], undefined, false, false, function() { global.FEDATA[3] = false; return false } ];
 
-#macro fe global.FEDATA.current
+#macro fe global.FEDATA[1]
 
 #macro foreach \
-	for(var _DataLoadeD_ = false, _CanLooP_ = false; true; { \
-	if _DataLoadeD_ { _CanLooP_ = true; if !fe.next() { fe.done(); break; } var 
+	for(global.FEDATA[2] = global.FEDATA[4](); true; { \
+	if global.FEDATA[2] { global.FEDATA[3] = true; if !fe.next() { fe.done(); break; } var 
 
 #macro in \
-	= fe.get(); } else { _DataLoadeD_ = true; fe = _FeDetectType_(false, 
+	= fe.get(); } else { global.FEDATA[2] = true; fe = _FeDetectType_(false, 
 
 #macro in_reverse \
-	= fe.get(); } else { _DataLoadeD_ = true; fe = _FeDetectType_(true, 
+	= fe.get(); } else { global.FEDATA[2] = true; fe = _FeDetectType_(true, 
 
 #macro exec \
-	); array_push(global.FEDATA.stack, fe); }}) if _CanLooP_
+	); array_push(global.FEDATA[0], fe); }}) if global.FEDATA[3]
 
 #macro as_list ,[ds_type_list]
 #macro as_map ,[ds_type_map]
@@ -68,9 +68,9 @@ function _FeArray_(reversed, data) constructor {
 	}
 
 	static done = function() {
-		array_pop(global.FEDATA.stack);
-		var l = array_length(global.FEDATA.stack);
-		if l != 0 fe = global.FEDATA.stack[l-1];
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 fe = global.FEDATA[0][l-1];
 	}
 }
 
@@ -100,9 +100,9 @@ function _FeList_(reversed, data) constructor {
 	}
 
 	static done = function() {
-		array_pop(global.FEDATA.stack);
-		var l = array_length(global.FEDATA.stack);
-		if l != 0 fe = global.FEDATA.stack[l-1];
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 fe = global.FEDATA[0][l-1];
 	}
 }
 
@@ -130,9 +130,9 @@ function _FeMap_(data) constructor {
 	}
 
 	static done = function() {
-		array_pop(global.FEDATA.stack);
-		var l = array_length(global.FEDATA.stack);
-		if l != 0 fe = global.FEDATA.stack[l-1];
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 fe = global.FEDATA[0][l-1];
 	}
 }
 
@@ -160,9 +160,9 @@ function _FeStruct_(data) constructor {
 	}
 
 	static done = function() {
-		array_pop(global.FEDATA.stack);
-		var l = array_length(global.FEDATA.stack);
-		if l != 0 fe = global.FEDATA.stack[l-1];
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 fe = global.FEDATA[0][l-1];
 	}
 }
 
@@ -198,9 +198,9 @@ function _FeGrid_(reversed, data) constructor {
 	}
 
 	static done = function() {
-		array_pop(global.FEDATA.stack);
-		var l = array_length(global.FEDATA.stack);
-		if l != 0 fe = global.FEDATA.stack[l-1];
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 fe = global.FEDATA[0][l-1];
 	}
 }
 
@@ -239,9 +239,9 @@ function _FeRange_() constructor {
 	}
 
 	static done = function() {
-		array_pop(global.FEDATA.stack);
-		var l = array_length(global.FEDATA.stack);
-		if l != 0 fe = global.FEDATA.stack[l-1];
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 fe = global.FEDATA[0][l-1];
 	}
 }
 
@@ -267,9 +267,9 @@ function _FeString_(reversed, data) constructor {
 	}
 
 	static done = function() {
-		array_pop(global.FEDATA.stack);
-		var l = array_length(global.FEDATA.stack);
-		if l != 0 fe = global.FEDATA.stack[l-1];
+		array_pop(global.FEDATA[0]);
+		var l = array_length(global.FEDATA[0]);
+		if l != 0 fe = global.FEDATA[0][l-1];
 	}
 }
 
