@@ -9,7 +9,7 @@ Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`,
 Removed temp local variables. All is now hidden inside `global.FEDATA`  
   
 [v2.0.5] Syntax update  
-The syntax is much simpler again thanks to [Gamer-XP](https://github.com/Gamer-XP)  
+The syntax is much simpler thanks to [Gamer-XP](https://github.com/Gamer-XP)  
   
 ### Syntax
 `foreach <var> in <data> exec`
