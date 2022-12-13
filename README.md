@@ -5,7 +5,7 @@ This foreach was made using macros so you don't have to pass variables like argu
 Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`, `as_map`, `fe` + global variable `FEDATA`
 
 ### Changes
-[v2.0.6] Syntax update  
+[v2.0.6] Tiny update  
 Removed temp local variables. All is now hidden inside `global.FEDATA`  
   
 [v2.0.5] Syntax update  
