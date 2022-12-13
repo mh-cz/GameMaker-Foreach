@@ -7,6 +7,7 @@ Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`,
 ### Changes
 [v2.0.6] Tiny update  
 Removed temp local variables. All is now hidden inside `global.FEDATA`  
+Also replaced the global struct with global array so theoretically it should be a bit faster  
   
 [v2.0.5] Syntax update  
 The syntax is much simpler thanks to [Gamer-XP](https://github.com/Gamer-XP)   
