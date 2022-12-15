@@ -34,7 +34,7 @@ The variable `fe` contains these variables:
   
 ####
 You can use `break` and `continue`  
-If you have a `return` inside a foreach loop make sure to always call `fe.done()` before `return` because there is otherwise no way to free the memory and it will freeze the game  
+If you have a `return` inside a foreach loop make sure to always call `fe.done()` before `return` because there is otherwise no way to free the loop and it will freeze the game  
 
 ## Examples
 Array - return value
