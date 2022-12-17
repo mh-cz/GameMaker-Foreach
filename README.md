@@ -1,10 +1,14 @@
-# GameMaker Foreach v2.0.6
+# GameMaker Foreach v2.0.7
 
 A foreach loop for **arrays**, **lists**, **maps**, **structs**, **grids**, **strings** and **number ranges**.  
 This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly.  
-Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`, `as_map`, `fe` + global variable `FEDATA`
+Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`, `as_map`, `fe`, `fe_break`, `global.FEDATA`
 
 ### Changes
+[v2.0.7] Tiny update  
+Updated autodetect  
+Added `fe_break;` to correctly break the loop. There is no way to do that for `return` tho so you still have to call `fe.done();` before `return` statement  
+  
 [v2.0.6] Tiny update  
 Removed temp local variables. All is now hidden inside `global.FEDATA`  
 Also replaced the global struct with global array so theoretically it should be a bit faster  
