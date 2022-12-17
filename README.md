@@ -37,9 +37,9 @@ The variable `fe` contains these variables:
 - write function `fe.set(val)` (anything but string and number range)
   
 ####
-If you use `return` statement call `fe.done();` before otherwise it will freeze
-To break the loop use `fe_break;` otherwise it's not gonna clean up the loop from the memory
-`continue` can be used normally 
+If you use `return` statement call `fe.done();` before otherwise it will freeze  
+To break the loop use `fe_break;` otherwise it's not gonna clean up the loop from the memory  
+`continue` can be used normally  
 
 ## Examples
 Array - return value
