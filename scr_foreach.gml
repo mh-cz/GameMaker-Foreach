@@ -1,8 +1,9 @@
-// v2.0.6
+// v2.0.7
 
 global.FEDATA = [[], undefined, false, false, function() { global.FEDATA[3] = false; return false } ];
 
 #macro fe global.FEDATA[1]
+#macro fe_break {fe.done(); break;}
 
 #macro foreach \
 	for(global.FEDATA[2] = global.FEDATA[4](); true; { \
@@ -17,23 +18,23 @@ global.FEDATA = [[], undefined, false, false, function() { global.FEDATA[3] = fa
 #macro exec \
 	); array_push(global.FEDATA[0], fe); }}) if global.FEDATA[3]
 
-#macro as_list ,[ds_type_list]
-#macro as_map ,[ds_type_map]
-#macro as_grid ,[ds_type_grid]
+#macro as_list , NaN, ds_type_list
+#macro as_map , NaN, ds_type_map
+#macro as_grid , NaN, ds_type_grid
 
 function _FeDetectType_(reversed, data) {
 	
-	if is_array(data) return new _FeArray_(reversed, data);
-	else if is_string(data) return new _FeString_(reversed, data);
-	else if is_struct(data) return new _FeStruct_(data);
-	else if argument_count == 3 and is_array(argument[2]) {
-		switch(argument[2][0]) {
+	if argument_count == 4 and is_nan(argument[2]) {
+		switch(argument[3]) {
 			case ds_type_list: return new _FeList_(reversed, data);
 			case ds_type_map:  return new _FeMap_(data);
 			case ds_type_grid: return new _FeGrid_(reversed, data);
 			default: throw "Unsupported ds type: " + string(argument[2][0]);
 		}
 	}
+	else if is_array(data) return new _FeArray_(reversed, data);
+	else if is_string(data) return new _FeString_(reversed, data);
+	else if is_struct(data) return new _FeStruct_(data);
 	else if is_numeric(data) {
 		if argument_count <= 2 return new _FeRange_(data);
 		else if argument_count == 3 return new _FeRange_(data, argument[2])
