@@ -6,7 +6,7 @@ Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`,
 
 ### Changes
 [v2.0.8] "Shut up Feather" update  
-Feather - no more errors and red lines (still some warnings tho)  
+Feather - no more errors and red lines (GM2043 warnings are still here. There is no way to get rid of those)  
 Speed - around 15% faster  
 The insides are much nicer to look at  
 Stack is limited to max 10 nested loops (I've never seen anyone use more than 4 but you can edit the value if you need more for some reason)  
