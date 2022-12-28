@@ -160,7 +160,7 @@ foreach v in 2, -2, 0.5 exec
 	
 > 2, 1.5, 1, 0.5, 0, -0.5, -1, -1.5, -2
 ```
-Stackable like any other loop
+Stackable like any other loop (currently max 10 times)
 ```
 foreach v1 in some_arr exec
 	foreach v2 in v1 exec
@@ -168,7 +168,7 @@ foreach v1 in some_arr exec
 			do_something(v3);
 
 ```
-One-liner
+It's a "one-liner"
 ```
 if !is_array(some_data) {
 	...
