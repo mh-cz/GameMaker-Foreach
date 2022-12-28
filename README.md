@@ -9,6 +9,7 @@ Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`,
 Feather - no more errors and red lines (still some warnings tho)  
 Speed - around 15% faster  
 The insides are much nicer to look at  
+Stack is limited to max 10 nested loops (I've never seen anyone use more than 4 but you can edit the value if you need more for some reason)  
   
 [v2.0.7] Tiny update  
 Updated autodetect  
@@ -134,7 +135,10 @@ foreach anim_count in animals exec {
 }
 
 ```
-Number ranges
+Number ranges  
+1 argument = from 0 to x, step 1  
+2 arguments = from x to y, step 1  
+3 arguments = from x to y, step z  
 ```
 foreach v in 5 exec 
 	show_debug_message(v);
