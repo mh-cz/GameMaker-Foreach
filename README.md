@@ -5,7 +5,7 @@ This foreach was made using macros so you don't have to pass variables like argu
 Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`, `as_map`, `fe`, `fe_break`, `global.FEDATA*`
 
 ### Changes
-[v2.0.9] A proper return
+[v2.0.9] A proper return  
 Call `return fe_return(val);` when exiting a function from inside the loop. It's just a minor thing that was missing and would freeze the game because regular `return val;` wouldn't free the loop. fe_return is a FUNCTION not a macro
 
 [v2.0.8] "Shut up Feather" update  
@@ -46,7 +46,7 @@ The variable `fe` contains these variables:
 - write function `fe.set(val)` (anything but string and number range)
   
 ####
-To return from within the loop use `return fe_return(val);` 
+To return from within the loop use `return fe_return(val);`  
 To break the loop use `fe_break;` otherwise it's not gonna clean up the loop from the memory  
 `continue` can be used normally  
 
