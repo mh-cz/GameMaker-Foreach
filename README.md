@@ -1,10 +1,13 @@
-# GameMaker Foreach v2.0.8
+# GameMaker Foreach v2.0.9
 
 A foreach loop for **arrays**, **lists**, **maps**, **structs**, **grids**, **strings** and **number ranges**.  
 This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly.  
 Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`, `as_map`, `fe`, `fe_break`, `global.FEDATA*`
 
 ### Changes
+[v2.0.9] A proper return
+Call `return fe_return(val);` when exiting a function from inside the loop. It's just a minor thing that was missing and would freeze the game because regular `return val;` wouldn't free the loop. fe_return is a FUNCTION not a macro
+
 [v2.0.8] "Shut up Feather" update  
 Feather - no more errors and red lines (GM2043 warnings are still here. There is no way to get rid of those)  
 Speed - around 15% faster  
