@@ -1,4 +1,4 @@
-// v2.0.8
+// v2.0.9
 
 // global var for each value (it's faster this way)
 global.FEDATA0 = array_create(10, undefined); // STACK
@@ -22,9 +22,14 @@ global.FEDATA4 = -1; // CURRENT STACK INDEX
 #macro exec \
 	); if !global.FEDATA3 fe_break; }) if global.FEDATA2
 
-#macro as_list ,undefined,ds_type_list
-#macro as_map  ,undefined,ds_type_map
-#macro as_grid ,undefined,ds_type_grid
+#macro as_list , undefined, ds_type_list
+#macro as_map , undefined, ds_type_map
+#macro as_grid , undefined, ds_type_grid
+
+function fe_return(val) {
+	fe.done();
+	return val;
+}
 
 function _FeAuto_(a0, a1, a2 = undefined, a3 = undefined) {
 
@@ -79,7 +84,6 @@ function _FeArray_() constructor {
 		fe = (--global.FEDATA4 != -1 ? global.FEDATA0[@ global.FEDATA4] : undefined);
 	}
 }
-
 
 function _FeList_() constructor {
 
