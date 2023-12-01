@@ -1,4 +1,4 @@
-# GameMaker Foreach v2.0.9
+# GameMaker Foreach v2.0.10
 
 A foreach loop for **arrays**, **lists**, **maps**, **structs**, **grids**, **strings** and **number ranges**.  
 This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly.  
