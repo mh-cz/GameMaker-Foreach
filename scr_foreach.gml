@@ -11,7 +11,7 @@ global.FEDATA4 = -1; // CURRENT STACK INDEX
 #macro fe_break { fe.done(); break; }
 
 #macro foreach \
-	for(global.FEDATA2 = false; true; { var 
+	for(global.FEDATA2 = false; true; {  
 
 #macro in \
 	= global.FEDATA2 ? fe.get() : _FeAuto_(false, 
