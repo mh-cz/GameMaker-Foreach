@@ -1,4 +1,4 @@
-// v2.0.9
+// v2.0.10
 
 // global var for each value (it's faster this way)
 global.FEDATA0 = array_create(10, undefined); // STACK
