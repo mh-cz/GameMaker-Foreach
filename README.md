@@ -5,10 +5,6 @@ This foreach was made using macros so you don't have to pass variables like argu
 Reserved keywords: `foreach`, `in`, `in_reversed`, `exec`, `as_list`, `as_grid`, `as_map`, `fe`, `fe_break`, `global.FEDATA*`
 
 ### Changes
-[v2.0.10] Silenced the GM2043 warning  
-I literally just removed the "var" keyword. That was it. It still works but now it doesn't complain about variable scope. huh  
-[https://media.tenor.com/5aYOvFRzBpsAAAAd/gumball-nicole.gif]  
-
 [v2.0.9] A proper return  
 Call `return fe_return(val);` when exiting a function from inside the loop. It's just a minor thing that was missing and would freeze the game because regular `return val;` wouldn't free the loop. fe_return is a FUNCTION not a macro
 
