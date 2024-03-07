@@ -47,11 +47,19 @@ While using `fe_return` you need to pay attention how "deep" the return is. If `
 var st = { one: 1, two: 2 };
 
 foreach st into v exec
-  show_debug_message(fe.key + " " + string(v));
+  show_debug_message(fe.key + ": " + string(v));
 ```
+```
+var arr = [1,2,3,4,5,6];
 
+foreach_rev arr into v exec
+  show_debug_message(fe.i + ": " + string(v));
+```
+```
+var m = ds_map_create();
+ds_map_add(m, "one", 1);
+ds_map_add(m, "two", 2);
 
-
-
-
-
+foreach m as_map into v exec
+  show_debug_message(fe.key + ": " + string(v));
+```
