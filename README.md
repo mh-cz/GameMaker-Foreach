@@ -13,6 +13,7 @@ It makes slightly more sense because you're passing data `into` the output varia
 [v3.0.0] A complete refractor  
 `+` managed to speed it up by about 40%  
 `+` no more warnings  
+`+` much cleaner code and macros  
 `-` DATA and VAR had to switch places. Now you first feed it data and then give it an output variable name  
 
 ### Syntax
