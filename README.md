@@ -16,7 +16,7 @@ Reserved keywords: `foreach`, `foreach_rev`, `invar`, `exec`, `as_list`, `as_gri
 reversed loop:  
 `foreach_rev <data> invar <var> exec`  
   
-+ `<var>` - an unused variable
++ `<var>` - an unused variable name to use
 + `<data>` - any supported data  
 
 DS datatypes require a specification:  
