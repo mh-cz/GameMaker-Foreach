@@ -30,7 +30,7 @@ foreach <some_ds_grid> as_grid into v exec
 ```
   
 ####
-The macro variable `fe` contains these variables:  
+The macro variable `fe` contains these variables of the current loop body:  
 - index `fe.i` (array, list, grid, number range, string)
 - key `fe.key` (map, struct)
 - position `fe.xpos`, `fe.ypos` (grid)
