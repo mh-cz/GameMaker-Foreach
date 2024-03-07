@@ -34,7 +34,7 @@ The macro variable `fe` contains these variables:
 - write function `fe.set(val)` (anything but string and number range)
   
 ####
-To return from within the loop use `fe_return(val, [depth]);`  
+To return from within the loop use `fe_return(val, [depth=1]);`  
 To break the loop use `fe_break;`  
 To continue the loop use `fe_continue;`  
   
