@@ -31,10 +31,10 @@ foreach <some_ds_grid> as_grid into v exec
   
 ####
 The macro variable `fe` contains these variables of the current loop body:  
-- index `fe.i` (array, list, grid, number range, string)
-- key `fe.key` (map, struct)
-- position `fe.xpos`, `fe.ypos` (grid)
-- write function `fe.set(val)` (anything but string and number range)
+- index `fe.i` for array, list, grid, number range, string
+- key `fe.key` for map, struct
+- position `fe.xpos`, `fe.ypos` for grid
+- write function `fe.set(val)` for anything but string and number range
   
 ####
 To return from a function from within the loop use `fe_return(val, [depth=1]);`  
