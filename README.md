@@ -41,7 +41,7 @@ To return from a function from within the loop use `fe_return(val, [depth=1]);`
 To break the loop use `fe_break;`  
 To continue the loop use `fe_continue;`  
   
-While using `fe_return` you need to pay attention how "deep" the return is. If `fe_return` is called in a nested fe loop you have to specify how many fe loops to break using the depth parameter otherwise the stack doesn't get cleared right and it will cause unpredictable behaviour.  
+While using `fe_return` you need to pay attention how "deep" the return is. If `fe_return` is called in a nested fe loop you have to specify how many fe loops to break using the depth parameter otherwise the stack doesn't get cleared correctly and it will cause unpredictable behaviour.  
 
 ## Examples
 ```
