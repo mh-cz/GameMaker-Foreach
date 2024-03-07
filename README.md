@@ -2,28 +2,30 @@
 
 A foreach loop for **arrays**, **lists**, **maps**, **structs**, **grids**, **strings** and **number ranges**.  
 This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly.  
-Reserved keywords: `foreach`, `foreach_rev`, `invar`, `exec`, `as_list`, `as_grid`, `as_map`, `fe`, `fe_break`, `fe_continue`, `fe_return`, `global._FE_*`
+Reserved keywords: `foreach`, `foreach_rev`, `into`, `exec`, `as_list`, `as_grid`, `as_map`, `fe`, `fe_break`, `fe_continue`, `fe_return`, `global._FE_*`
 
-### Changes
+### Changes 
+[v3.0.1] Renamed `invar` to `into`
+
 [v3.0.0] A complete refractor  
 + managed to speed it up by about 40%
 + no more warnings
 + DATA source and output VAR had to be SWITCHED
 
 ### Syntax
-`foreach <data> invar <var> exec`  
+`foreach <data> into <var> exec`  
   
 reversed loop:  
-`foreach_rev <data> invar <var> exec`  
+`foreach_rev <data> into <var> exec`  
   
 + `<var>` - an unused variable name to use
 + `<data>` - any supported data  
 
 DS datatypes require a specification:  
 ```
-foreach <some_ds_map> as_map invar v exec
-foreach <some_ds_list> as_list invar v exec
-foreach <some_ds_grid> as_grid invar v exec
+foreach <some_ds_map> as_map into v exec
+foreach <some_ds_list> as_list into v exec
+foreach <some_ds_grid> as_grid into v exec
 ```
   
 ####
