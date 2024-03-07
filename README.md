@@ -55,24 +55,30 @@ foreach xxx into v1 exec
 
 ## Examples
 ```
-var st = { one: 1, two: 2 };
+var st = {
+  one: 1,
+  two: 2
+};
 
-foreach st into v exec
+foreach st into v exec {
   show_debug_message(fe.key + ": " + string(v));
+}
 ```
 ```
 var arr = [1,2,3,4,5,6];
 
-foreach_rev arr into v exec
+foreach_rev arr into v exec {
   show_debug_message(string(fe.i) + ": " + string(v));
+}
 ```
 ```
-var m = ds_map_create();
-ds_map_add(m, "one", 1);
-ds_map_add(m, "two", 2);
+var map = ds_map_create();
+ds_map_add(map, "one", 1);
+ds_map_add(map, "two", 2);
 
-foreach m as_map into v exec
+foreach map as_map into v exec {
   show_debug_message(fe.key + ": " + string(v));
+}
 ```
 Range  
 + 1 param: from = 0, to = `p1`, step = 1  
