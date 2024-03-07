@@ -10,7 +10,7 @@ Reserved keywords: `foreach`, `foreach_rev`, `into`, `exec`, `as_list`, `as_grid
 [v3.0.0] A complete refractor  
 + managed to speed it up by about 40%
 + no more warnings
-+ DATA source and output VAR had to be SWITCHED
++ DATA and VAR had to SWITCH PLACES
 
 ### Syntax
 `foreach <data> into <var> exec`  
