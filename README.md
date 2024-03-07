@@ -63,3 +63,7 @@ ds_map_add(m, "two", 2);
 foreach m as_map into v exec
   show_debug_message(fe.key + ": " + string(v));
 ```
+```
+foreach -5, 5, 0.5 into v exec
+  show_debug_message(v);
+```
