@@ -42,6 +42,15 @@ To break the loop use `fe_break;`
 To continue the loop use `fe_continue;`  
   
 While using `fe_return` you need to pay attention how "deep" the return is. If `fe_return` is called in a nested fe loop you have to specify how many fe loops to break using the depth parameter otherwise the stack doesn't get cleared correctly and it will cause unpredictable behaviour. (tbh I wouldn't return from within fe loops at all)  
+  
+####
+Still a one-liner
+```
+foreach xxx into v1 exec
+  foreach xxx into v2 exec
+    foreach xxx into v3 exec
+      ...
+```
 
 ## Examples
 ```
