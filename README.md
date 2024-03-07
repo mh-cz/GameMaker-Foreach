@@ -11,9 +11,9 @@ Reserved keywords: `foreach`, `foreach_rev`, `into`, `exec`, `as_list`, `as_grid
 It makes slightly more sense because you're passing data `into` the output variable   
 
 [v3.0.0] A complete refractor  
-(+) managed to speed it up by about 40%  
-(+) no more warnings  
-(-) DATA and VAR had to switch places. Now you first feed it data and then give it an output variable name  
+`+` managed to speed it up by about 40%  
+`+` no more warnings  
+`-` DATA and VAR had to switch places. Now you first feed it data and then give it an output variable name  
 
 ### Syntax
 `foreach <data> into <var> exec`  
