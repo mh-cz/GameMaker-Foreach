@@ -53,7 +53,7 @@ foreach st into v exec
 var arr = [1,2,3,4,5,6];
 
 foreach_rev arr into v exec
-  show_debug_message(fe.i + ": " + string(v));
+  show_debug_message(string(fe.i) + ": " + string(v));
 ```
 ```
 var m = ds_map_create();
