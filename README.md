@@ -77,6 +77,7 @@ Range
 + 1 param: from = 0, to = `p1`, step = 1  
 + 2 params: from = `p1`, to = `p2`, step = 1  
 + 3 params: from = `p1`, to = `p2`, step = `p3`  
+  
 ```
 foreach 5 into v exec
   show_debug_message(v);
