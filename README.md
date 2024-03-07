@@ -2,7 +2,8 @@
 GameMaker 2.3+  
 
 A foreach loop for **arrays**, **lists**, **maps**, **structs**, **grids**, **strings** and **number ranges**.  
-This foreach was made using macros so you don't have to pass variables like arguments. You can access them inside of the loop directly.  
+ 
+This foreach was made using **macros** so you don't have to pass variables like arguments. You can access them inside of the loop directly.  
 Reserved keywords: `foreach`, `foreach_rev`, `into`, `exec`, `as_list`, `as_grid`, `as_map`, `fe`, `fe_break`, `fe_continue`, `fe_return`, `global._FE_*`
 
 ### Changes 
