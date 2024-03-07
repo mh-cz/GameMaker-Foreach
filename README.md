@@ -20,6 +20,7 @@ reversed loop:
   
 + `<var>` - an unused variable name to use
 + `<data>` - any supported data  
+Only data that dont use `keys` as indexes can be reversed  
 
 DS datatypes require a specification:  
 ```
