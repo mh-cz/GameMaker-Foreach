@@ -1,4 +1,4 @@
-// Foreach v3.0.0
+// Foreach v3.0.1
 
 #region GLOBAL
 
@@ -25,7 +25,7 @@ global._FE = undefined;
 #macro foreach_rev \
 	for(_FE_AUTO_REV_(
 
-#macro invar \
+#macro into \
 	); fe.fn(); ) for(var 
 
 #macro exec \
