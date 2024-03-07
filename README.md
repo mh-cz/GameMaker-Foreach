@@ -6,7 +6,7 @@ Reserved keywords: `foreach`, `foreach_rev`, `into`, `exec`, `as_list`, `as_grid
 
 ### Changes 
 [v3.0.1] Renamed `invar` to `into`  
-It makes slightly more sense  
+It makes slightly more sense because you're passing data `into` the declared variable  
 
 [v3.0.0] A complete refractor  
 + managed to speed it up by about 40%
