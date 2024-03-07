@@ -5,7 +5,8 @@ This foreach was made using macros so you don't have to pass variables like argu
 Reserved keywords: `foreach`, `foreach_rev`, `into`, `exec`, `as_list`, `as_grid`, `as_map`, `fe`, `fe_break`, `fe_continue`, `fe_return`, `global._FE_*`
 
 ### Changes 
-[v3.0.1] Renamed `invar` to `into`
+[v3.0.1] Renamed `invar` to `into`  
+It makes slightly more sense  
 
 [v3.0.0] A complete refractor  
 + managed to speed it up by about 40%
