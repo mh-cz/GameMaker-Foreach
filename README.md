@@ -11,12 +11,15 @@ Reserved keywords: `foreach`, `foreach_rev`, `invar`, `exec`, `as_list`, `as_gri
 + DATA source and output VAR had to be SWITCHED
 
 ### Syntax
-`foreach <data> invar <var> exec`
-
+`foreach <data> invar <var> exec`  
+  
+reversed loop:  
+`foreach_rev <data> invar <var> exec`  
+  
 + `<var>` - an unused variable
 + `<data>` - any supported data  
 
-The only datatypes that require exact specifications are DS types
+DS datatypes require a specification:  
 ```
 foreach <some_ds_map> as_map invar v exec
 foreach <some_ds_list> as_list invar v exec
@@ -31,8 +34,9 @@ The macro variable `fe` contains these variables:
 - write function `fe.set(val)` (anything but string and number range)
   
 ####
-To return from within the loop use `fe_return(val, depth*);`  
+To return from within the loop use `fe_return(val, [depth]);`  
 To break the loop use `fe_break;`  
-To continue the loop use `fe_continue;`
-
-
+To continue the loop use `fe_continue;`  
+  
+While using `fe_return` you need to pay attention how "deep" the return is. If `fe_return` is called in a nested fe loop you have to specify how many fe loops to break using the depth parameter.  
+  
